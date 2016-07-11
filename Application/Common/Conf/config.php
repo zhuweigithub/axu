@@ -11,4 +11,9 @@ return array(
         "returnUrl"=>"weixin.aweb.ybzf.com"
     ),
     "REDIS_TIME"=>3600,
+    /* 系统缓存 */
+    'DATA_CACHE_TYPE'                   => 'Redis',
+    'REDIS_HOST'                        => '192.168.0.243',
+    'REDIS_PORT'                        => 6379,
+    'DATA_CACHE_TIME'                   => 3600,
 );
