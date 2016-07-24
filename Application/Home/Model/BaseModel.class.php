@@ -1,10 +1,10 @@
 <?php
-namespace Common\Model;
+namespace Home\Model;
 /**
  * auth zw
  * email 452436132@qq.com
  * Class BaseModel
- * @package Common\Model
+ * @package Home\Model
  */
 class BaseModel {
     public $_loginMessage = "";

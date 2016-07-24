@@ -1,10 +1,10 @@
 <?php
-namespace Common\Model;
+namespace Home\Model;
 /**
  * auth zw
  * email 452436132@qq.com
  * Class LoginModel
- * @package Common\Model
+ * @package Home\Model
  */
 class LoginModel extends BaseModel{
     protected $_user = "";

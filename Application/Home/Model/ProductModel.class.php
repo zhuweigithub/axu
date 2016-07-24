@@ -1,10 +1,10 @@
 <?php
-namespace Common\Model;
+namespace Home\Model;
 /**
  * auth zw
  * email 452436132@qq.com
  * Class ProductModel
- * @package Common\Model
+ * @package Home\Model
  */
 class ProductModel extends BaseModel{
     protected $_activity = "";
