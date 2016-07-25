@@ -1,7 +1,7 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-class LoginController extends BaseController {
+class LoginController extends Controller {
     public function __construct()
     {
         parent::__construct();
