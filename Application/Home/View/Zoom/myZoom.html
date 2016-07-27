@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>我的爱秀空间</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
+<meta name="apple-touch-fullscreen" content="yes">
+<meta HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+<meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<meta HTTP-EQUIV="expires" CONTENT="0"> 
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="stylesheet" href="font/iconfont.css" />
+<link rel="stylesheet" href="css/fontStyle.css" />
+<style>
+section{
+	position: relative;
+	height: 100px;
+	overflow: hidden;
+}
+.account{
+	font-size: 16px;
+	margin: 20px 0 20px 10px;
+}
+.balance{
+	color: #005599;
+	border: 1px solid #888;
+	padding: 2px 10px;
+}
+.roleTip{
+	margin-left: 10px;
+	font-size: 12px;
+}
+.getMoney{
+	position: absolute;
+	font-size: 16px;
+	padding: 3px 12px;
+	border: 1px solid #666;
+	top: 30px;
+	right: 5px;
+	border-radius: 3px;
+}
+
+.myAccount{
+	padding: 5px 0 10px 0;
+	display: -webkit-box;
+    display: -moz-box;
+    display: box;
+}
+.myAccount>div{
+	-webkit-box-flex:1 ;
+    -moz-box-flex: 1;
+    box-flex: 1;
+}
+.myAccountIco{
+	text-align: center;
+	font-size: 25px;
+}
+.myAccountTitle{
+	text-align: center;
+	font-size: 14px;
+}
+.myAccount .icon{
+	font-size: 24px;
+}
+legend{
+	font-size: 12px;
+}
+.showSecretImg{
+	width: 100px;
+	height: 100px;
+	border: 1px dashed #005599;
+	border-radius: 50%;
+	margin: 20px auto;
+	font-size: 20px;
+	text-align: center;
+	line-height: 99px;
+	background: #ebebeb;
+	color: #005599;
+	animation: myfirst 2s;
+	-moz-animation: myfirst 2s;	/* Firefox */
+	-webkit-animation: myfirst 2s;	/* Safari 和 Chrome */
+	-o-animation: myfirst 2s;
+	animation-iteration-count: infinite;
+}
+@keyframes myfirst{
+	0% {background: #EBEBEB;}
+	25% {background: goldenrod;}
+	50% {background: #F88E8B;}
+	100% {background: #EBEBEB;}
+}
+@-webkit-keyframes myfirst{ /* Safari 和 Chrome */
+	0% {background: #EBEBEB;}
+	25% {background: goldenrod;}
+	50% {background: #F88E8B;}
+	100% {background: #EBEBEB;}
+}
+
+
+
+</style>
+</head>
+<body>
+<?php include 'myZoomHead.php';?>
+<section>
+	<p class="account">账户余额：<a class="balance">14.2元</a></p>
+	<p class="roleTip">注：账户余额满1元即可提取，每次限提整元！</p>
+	<p class="getMoney">提现</p>
+</section>
+<fieldset>
+<legend>我的空间</legend>
+<div class="myAccount">
+	
+	<div class="incomeDetails">
+		<a href="myIncomeList.php?userId=12">
+			<div class="myAccountIco">
+				<i class="icon iconfont"></i>
+			</div>
+			<div class="myAccountTitle">收入详情</div>
+		</a>
+	</div>
+	
+	<div class="payDetails" id="wxtoseebill">
+		<a href="myPublishedList.php?userId=12">
+			<div class="myAccountIco">
+				<i class="icon iconfont"></i>
+			</div>
+			<div class="myAccountTitle">我的发布</div>
+		</a>
+	</div>
+	<div class="mySecrets" id="wxtoseebill">
+		<a href="myFootPrintList.php?userId=12">
+			<div class="myAccountIco">
+				<i class="icon iconfont"></i>
+			</div>
+			<div class="myAccountTitle">我的足迹</div>
+		</a>
+	</div>
+	<div class="myContacts" id="wxtoseebill">
+		<a href="myFriends.php?userId=12">
+			<div class="myAccountIco">
+				<i class="icon iconfont"></i>
+			</div>
+			<div class="myAccountTitle">我的人脉</div>
+		</a>
+	</div>		
+</div>
+</fieldset>
+<div class="xiuBtnDiv">
+	<div class="showSecretImg">秀私图</div>
+</div>
+
+
+
+
+</body>
+<script type="text/javascript" src="js/jquery.min.js" ></script>
+<script>
+$(function(){
+	$(".showSecretImg").click(function(){
+		location.href="publishSecretImg.php?userId=12";
+	})
+})
+	
+</script>
+
+
+</html>

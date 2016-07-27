@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>我的爱秀空间</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
+<meta name="apple-touch-fullscreen" content="yes">
+<meta HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+<meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<meta HTTP-EQUIV="expires" CONTENT="0"> 
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="stylesheet" href="__PUBLIC__/font/iconfont.css" />
+<link rel="stylesheet" href="__PUBLIC__/css/fontStyle.css" />
+<style>
+*{
+	padding: 0;
+	margin: 0; 
+	font-family: "PingFang SC",Helvetica,Arial,"微软雅黑","黑体";
+	-webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    text-shadow: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+a{text-decoration: none; color: #222;}
+img{border: 0;}
+body{
+	padding: 5px;
+}
+@font-face {font-family: 'iconfont';
+    src: url('__PUBLIC__/font/iconfont.eot'); /* IE9*/
+    src: url('__PUBLIC__/font/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('__PUBLIC__/font/iconfont.woff') format('woff'), /* chrome、firefox */
+    url('__PUBLIC__/font/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('__PUBLIC__/font/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+body{
+	background: #86D2C6;
+}
+.iconfont{
+    font-family:"iconfont" !important;
+    font-size:16px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+.loginBox{
+	width: 82%;
+	height: 400px;
+	border: 1px solid #999;
+	border-radius: 8px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	margin: 20px auto 0 auto;
+	padding: 10px 5px;
+}
+.logoDiv{
+	width: 60%;
+	margin: 0 auto;
+}
+.logoDiv img{
+	width: 100%;
+}
+.loginName,.loginPwd{
+	border-bottom: 1px solid #222;
+	height: 32px;
+	margin: 20px 0;
+	line-height: 30px;
+}
+.loginName i,.loginPwd i{
+	font-size: 28px;
+	vertical-align: middle;
+	color:#222;
+}
+.loginName input,.loginPwd input{
+	height: 28px;
+	border: 0;
+	outline: 0;
+	margin-left: 5px;
+	width: 200px;
+	padding: 2px 8px;
+	background: #86D2C6;
+	color: #222;
+	font-size: 16px;
+}
+#rememberPwd{
+	font-size: 24px;
+	vertical-align: middle;
+}
+label{
+	font-size: 14px;
+}
+.loginBtn{
+	
+	width: 100%;
+	background: #006000;
+	color: #fff;
+	font-size: 18px;
+	padding: 5px 0;
+	margin: 20px auto;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border: 1px solid #fff;
+}
+.tips{
+	font-size: 12px;
+	color: #333;
+}
+#errorTips{
+	color: red;
+	float: right;
+	font-size: 12px;
+}
+</style>
+</head>
+<body>
+
+<form name="myForm" action="__URL__/login" method="post">
+	<div class="loginBox">
+		<div class="logoDiv"><img src="__PUBLIC__/img/logo.png" /></div>
+		<p class="loginName"><i class="icon iconfont"></i><input name="username" type="tel" maxlength="11" placeholder="手机号码"></p>
+		<p class="loginPwd"><i class="icon iconfont"></i><input name="password" type="password" maxlength="12" placeholder="请输入密码"></p>
+		<input id="rememberPwd" type="checkbox" /><label for="rememberPwd">是否记住密码</label>
+		<label id="errorTips"></label>
+		<input class="loginBtn" type="submit" onclick=" return sub()" value="登录" />
+		<p class="tips">注：忘记密码请用微信登录~</p>
+	</div>
+</form>
+
+</body>
+<script>
+
+function sub(){
+	var ou=document.myForm.username;
+	var op=document.myForm.password;	
+	if(checkMobile(ou.value.toString())){
+		if(op.value==''){
+			document.getElementById("errorTips").innerText="密码不正确！";
+			return false;
+		}else{
+			return true;
+		}	
+	}else{
+		document.getElementById("errorTips").innerText="手机号码不正确！";
+		return false;
+	}
+}
+
+/*
+ * 手机号码校验
+ */
+function checkMobile(str){
+    var re = /^1\d{10}$/;
+    if (re.test(str)) {
+        return true;
+    }else{
+        return false;
+    }
+}
+	
+</script>
+</html>

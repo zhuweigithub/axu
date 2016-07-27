@@ -19,7 +19,8 @@ class LoginModel extends BaseModel{
         }
         $data = json_encode($data);
         $param['mobile'] = $data['username'];
-        $param['password'] = md5(md5($data['password']).C("PASSWORD_SUFFIX")) ;
+        //$param['password'] = md5(md5($data['password']).C("PASSWORD_SUFFIX")) ;
+        $param['password'] = $data['password'];
         $str = "buyer_id,mobile,buyer_nick,wx_open_id";
         $userInfo = $this->_user->field( $str )->where( $param )->select();
         if(empty($userInfo)){
