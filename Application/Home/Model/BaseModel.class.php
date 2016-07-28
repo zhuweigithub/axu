@@ -6,7 +6,7 @@ namespace Home\Model;
  * Class BaseModel
  * @package Home\Model
  */
-class BaseModel {
+class BaseModel{
     public $_loginMessage = "";
     public function __construct(){
 

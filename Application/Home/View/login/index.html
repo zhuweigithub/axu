@@ -94,7 +94,6 @@ label{
 	font-size: 14px;
 }
 .loginBtn{
-	
 	width: 100%;
 	background: #006000;
 	color: #fff;
@@ -125,7 +124,7 @@ label{
 		<p class="loginName"><i class="icon iconfont"></i><input name="username" type="tel" maxlength="11" placeholder="手机号码"></p>
 		<p class="loginPwd"><i class="icon iconfont"></i><input name="password" type="password" maxlength="12" placeholder="请输入密码"></p>
 		<input id="rememberPwd" type="checkbox" /><label for="rememberPwd">是否记住密码</label>
-		<label id="errorTips"></label>
+		<label id="errorTips">{$result}</label>
 		<input class="loginBtn" type="submit" onclick=" return sub()" value="登录" />
 		<p class="tips">注：忘记密码请用微信登录~</p>
 	</div>
@@ -136,10 +135,10 @@ label{
 
 function sub(){
 	var ou=document.myForm.username;
-	var op=document.myForm.password;	
+	var op=document.myForm.password;
 	if(checkMobile(ou.value.toString())){
 		if(op.value==''){
-			document.getElementById("errorTips").innerText="密码不正确！";
+			document.getElementById("errorTips").innerText="请输入密码！";
 			return false;
 		}else{
 			return true;

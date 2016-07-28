@@ -10,8 +10,8 @@
 <meta HTTP-EQUIV="expires" CONTENT="0"> 
 <meta content="yes" name="apple-mobile-web-app-capable">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<link rel="stylesheet" href="font/iconfont.css" />
-<link rel="stylesheet" href="css/fontStyle.css" />
+<link rel="stylesheet" href="__PUBLIC__/font/iconfont.css" />
+<link rel="stylesheet" href="__PUBLIC__/css/fontStyle.css" />
 <style>
 section{
 	position: relative;
@@ -96,12 +96,10 @@ legend{
 	100% {background: #EBEBEB;}
 }
 
-
-
 </style>
 </head>
 <body>
-<?php include 'myZoomHead.php';?>
+<?php include './Public/myZoomHead.php';?>
 <section>
 	<p class="account">账户余额：<a class="balance">14.2元</a></p>
 	<p class="roleTip">注：账户余额满1元即可提取，每次限提整元！</p>
@@ -154,7 +152,6 @@ legend{
 
 
 </body>
-<script type="text/javascript" src="js/jquery.min.js" ></script>
 <script>
 $(function(){
 	$(".showSecretImg").click(function(){
