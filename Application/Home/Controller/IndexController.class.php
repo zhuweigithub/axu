@@ -9,8 +9,11 @@ class IndexController extends Controller {
     public function index(){
         $appId = C("APP_ID");
         $appSecret = C("APP_SECRET");
-        $redirect_url = "http://www.zhuwei.site/index.php/Home/Index/getList";
+        $redirect_url = urlencode("http://www.zhuwei.site");
+
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=". $appId ."&redirect_uri=". $redirect_url ."&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+       fb($url);
+
         header("Location:". $url);
         //$this->display();
         }
