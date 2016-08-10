@@ -19,7 +19,7 @@ class IndexController extends Controller {
     public function getList(){
         $code = $_GET['code'];
         $get_access_token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=".  $this->_appId ."&secret=". $this->_appSecret ."&code=". $code ."&grant_type=authorization_code";
-        $access_token = json_decode($this->requestUrl($get_access_token_url,''),true);
+        $access_token = json_decode($this->requestUrl('',$get_access_token_url),true);
         var_dump($access_token); exit;
         $this->display();
     }
