@@ -20,7 +20,7 @@ class IndexController extends Controller {
         $code = $_GET['code'];
         $get_access_token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=".  $this->_appId ."&secret=". $this->_appSecret ."&code=". $code ."&grant_type=authorization_code";
         $access_token = json_decode($this->requestUrl('',$get_access_token_url),true);
-
+        var_dump($access_token);exit;
         $get_user_info_url = "https://api.weixin.qq.com/sns/userinfo?access_token=". $access_token['access_token'] ."&openid=". $access_token['openid'] ."&lang=zh_CN";
         $userInfo = json_decode($this->requestUrl('',$get_user_info_url),true);
         var_dump($userInfo);exit;
