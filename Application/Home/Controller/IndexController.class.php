@@ -23,6 +23,7 @@ class IndexController extends Controller {
 
         $get_user_info_url = "https://api.weixin.qq.com/sns/userinfo?access_token=". $access_token['access_token'] ."&openid=". $access_token['openid'] ."&lang=zh_CN";
         $userInfo = json_decode($this->requestUrl('',$get_user_info_url),true);
+        var_dump($userInfo);exit;
         session("zw",$userInfo);
     }
     public function sss(){
