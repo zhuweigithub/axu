@@ -2,24 +2,25 @@
 namespace Home\Controller;
 use Think\Controller;
 class IndexController extends Controller {
+    protected $_appId ="";
+    protected $_appSecret ="";
     public function __construct()
     {
-     parent::__construct();
+        $this->_appId = C("APP_ID");
+        $this->_appSecret = C("APP_SECRET");
+        parent::__construct();
     }
     public function index(){
-        $appId = C("APP_ID");
-        $appSecret = C("APP_SECRET");
+        $appId = $this->_appId;
         $redirect_url = urlencode("http://www.zhuwei.site/index.php/Home/Index/getList");
-
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=". $appId ."&redirect_uri=". $redirect_url ."&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
-       fb($url);
-
         header("Location:". $url);
-        //$this->display();
         }
     public function getList(){
-         $code = $_GET['code'];
-       echo $code;exit;
+        $code = $_GET['code'];
+        $get_access_token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=".  $this->_appId ."&secret=". $this->_appSecret ."&code=". $code ."&grant_type=authorization_code";
+        $access_token = json_decode($this->requestUrl($get_access_token_url,''),true);
+        var_dump($access_token); exit;
         $this->display();
     }
     public function checkSignature()
