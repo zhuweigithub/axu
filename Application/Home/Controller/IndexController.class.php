@@ -7,11 +7,16 @@ class IndexController extends Controller {
      parent::__construct();
     }
     public function index(){
-
-        $this->display();
+        $appId = C("APP_ID");
+        $appSecret = C("APP_SECRET");
+        $redirect_url = urlencode("http://www.zhuwei.site/index.php/Home/Index/getList");
+        $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=". $appId ."&redirect_uri=". $redirect_url ."&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+        header($url);
+        //$this->display();
         }
     public function getList(){
-
+         $code = $_GET['code'];
+       echo $code;exit;
         $this->display();
     }
     public function checkSignature()
@@ -33,5 +38,23 @@ class IndexController extends Controller {
         }else{
             return false;
         }
+    }
+    /**
+     * @param $data
+     * @param $url
+     * @return mixed
+     */
+    public function requestUrl($data,$url){
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HTTPHEADER, []);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_COOKIEJAR, null);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_URL, $url );
+        curl_setopt($ch, CURLOPT_POST, true);
+        $content  = curl_exec($ch);
+        return $content;
     }
 }

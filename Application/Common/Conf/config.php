@@ -27,5 +27,8 @@ return array(
     'DB_PREFIX' => 'ax_', // 数据库表前缀
 
     /*加密字符串*/
-    "PASSWORD_SUFFIX" => 'zw_info'
+    "PASSWORD_SUFFIX" => 'zw_info',
+    "APP_ID" => 'wxd892d9377ca9cabc',
+    "APP_SECRET" => '99c8d09540dfc387aa4c599fd92819d5',
+
 );
