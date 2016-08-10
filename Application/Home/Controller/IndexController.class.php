@@ -14,4 +14,24 @@ class IndexController extends Controller {
 
         $this->display();
     }
+    public function checkSignature()
+    {
+        $signature = $_GET["signature"];
+        $timestamp = $_GET["timestamp"];
+        $nonce = $_GET["nonce"];
+
+        $token = "zhuwei";
+        $tmpArr = array($token, $timestamp, $nonce);
+        sort($tmpArr, SORT_STRING);
+        $tmpStr = implode( $tmpArr );
+        $tmpStr = sha1( $tmpStr );
+
+        if( $tmpStr == $signature ){
+            $echoStr = $_GET["echostr"];
+            echo $echoStr;
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

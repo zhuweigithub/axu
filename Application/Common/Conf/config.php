@@ -15,4 +15,19 @@ return array(
     'URL_MODEL'            => 3, //URL模式
     'VAR_URL_PARAMS'       => '', // PATHINFO URL参数变量
     'URL_PATHINFO_DEPR'    => '/', //PATHINFO URL分割符
+    /* 模板相关配置 */
+    'TMPL_PARSE_STRING' => array(
+        '__IMG__'    => __ROOT__ . '/Public/images',
+        '__CSS__'    => __ROOT__ . '/Public/css',
+        '__JS__'     => __ROOT__ . '/Public/js',
+    ),
+
+    /* 数据库配置 */
+    'DB_TYPE'   => 'mysqli', // 数据库类型
+    'DB_HOST'   => '120.26.231.149', // 服务器地址
+    'DB_NAME'   => 'ax', // 数据库名
+    'DB_USER'   => 'root', // 用户名
+    'DB_PWD'    => 'zw2732.com',  // 密码fe9a28f01e
+    'DB_PORT'   => '3306', // 端口
+    'DB_PREFIX' => 'oa_', // 数据库表前缀
 );
