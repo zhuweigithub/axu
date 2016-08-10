@@ -11,7 +11,7 @@ class IndexController extends Controller {
         $appSecret = C("APP_SECRET");
         $redirect_url = urlencode("http://www.zhuwei.site/index.php/Home/Index/getList");
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=". $appId ."&redirect_uri=". $redirect_url ."&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
-        header($url);
+        header("Location:". $url);
         //$this->display();
         }
     public function getList(){
