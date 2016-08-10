@@ -17,7 +17,10 @@ class IndexController extends Controller {
         header("Location:". $url);
         }
     public function getList(){
-        $code = $_GET['code'];
+        if($_GET['code']){
+            session("wxCode",$_GET['code']) ;
+        }
+        $code = $_GET['code'] ? $_GET['code'] : session("wxCode");
         $get_access_token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=".  $this->_appId ."&secret=". $this->_appSecret ."&code=". $code ."&grant_type=authorization_code";
         $access_token = json_decode($this->requestUrl('',$get_access_token_url),true);
         var_dump($access_token);exit;
