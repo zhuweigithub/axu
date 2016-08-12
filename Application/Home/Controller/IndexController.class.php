@@ -21,16 +21,20 @@ class IndexController extends Controller {
         header("Location:". $url);
         }
     public function getList(){
-        if($_GET['code']){
+     /*   if($_GET['code']){
             session("wxCode",$_GET['code']) ;
-        }
+        }*/
         $code = $_GET['code'] ? $_GET['code'] : session("wxCode");
         fb($code);
         $this->_wxApi->getList($code);
     }
     public function sss(){
         $vf = session("zw");
-        print_r($vf);exit;
+        print_r($vf);
+        $vf1 = session("zw1");
+        print_r($vf1);
+
+        exit;
     }
     public function checkSignature()
     {
