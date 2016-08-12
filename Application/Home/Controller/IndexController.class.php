@@ -25,13 +25,15 @@ class IndexController extends Controller {
             session("wxCode",$_GET['code']) ;
         }*/
         $code = $_GET['code'];
+        session("zw3",$code);
         fb($code);
         echo $code;
         $this->_wxApi->getList($code);
     }
     public function sss(){
-      /*  $vf = session("zw",'');
-        print_r($vf);*/
+        $vf = session("zw3");
+        print_r($vf);
+        echo '<br>==============<<<<>>>>';
         $vf1 = session("zw1");
         print_r($vf1);
 
