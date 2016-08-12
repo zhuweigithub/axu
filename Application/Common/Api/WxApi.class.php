@@ -12,10 +12,11 @@ class WxApi{
     public function getList( $code ){
         $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$this->_appId&secret=$this->_appSecret";
         $token = $this->getJson($url);
-        session("zw1",$token);exit;
         //第二步:取得openid
         $oauth2Url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$this->_appId&secret=$this->_appSecret&code=$code&grant_type=authorization_code";
         $oauth2 = $this->getJson($oauth2Url);
+
+        session("zw1",$oauth2);exit;
         $_SESSION['access_token']=$token["access_token"];
         //第三步:根据全局access_token和openid查询用户信息
         $access_token = $token["access_token"];
