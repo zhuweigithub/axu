@@ -1,13 +1,17 @@
 <?php
 namespace Home\Controller;
+use Common\Api\WxApi;
 use Think\Controller;
+load('Common.WxApi');
 class IndexController extends Controller {
     protected $_appId ="";
     protected $_appSecret ="";
+    protected $_wxApi = "";
     public function __construct()
     {
         $this->_appId = C("APP_ID");
         $this->_appSecret = C("APP_SECRET");
+        $this->_wxApi = new WxApi();
         parent::__construct();
     }
     public function index(){
@@ -21,13 +25,8 @@ class IndexController extends Controller {
             session("wxCode",$_GET['code']) ;
         }
         $code = $_GET['code'] ? $_GET['code'] : session("wxCode");
-        $get_access_token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=".  $this->_appId ."&secret=". $this->_appSecret ."&code=". $code ."&grant_type=authorization_code";
-        $access_token = json_decode($this->requestUrl('',$get_access_token_url),true);
-        session("zw",$access_token);exit;
-        $get_user_info_url = "https://api.weixin.qq.com/sns/userinfo?access_token=". $access_token['access_token'] ."&openid=". $access_token['openid'] ."&lang=zh_CN";
-        $userInfo = json_decode($this->requestUrl('',$get_user_info_url),true);
-        var_dump($userInfo);exit;
-        session("zw",$userInfo);
+        fb($code);
+        $this->_wxApi->getList($code);
     }
     public function sss(){
         $vf = session("zw");
