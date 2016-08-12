@@ -9,8 +9,10 @@ class IndexController extends Controller {
     protected $_wxApi = "";
     public function __construct()
     {
-        $this->_appId = C("APP_ID");
-        $this->_appSecret = C("APP_SECRET");
+     /*   $this->_appId = C("APP_ID");
+        $this->_appSecret = C("APP_SECRET");*/
+        $this->_appId = "wxd892d9377ca9cabc";
+        $this->_appSecret = "99c8d09540dfc387aa4c599fd92819d5";
         $this->_wxApi = new WxApi();
         parent::__construct();
     }

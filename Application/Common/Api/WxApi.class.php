@@ -6,8 +6,10 @@ class WxApi{
     protected $_appSecret ="";
     public function __construct()
     {
-        $this->_appId = C("APP_ID");
-        $this->_appSecret = C("APP_SECRET");
+       /* $this->_appId = C("APP_ID");
+        $this->_appSecret = C("APP_SECRET");*/
+        $this->_appId = "wxd892d9377ca9cabc";
+        $this->_appSecret = "99c8d09540dfc387aa4c599fd92819d5";
     }
     public function getList( $code ){
     /*    $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$this->_appId&secret=$this->_appSecret";
