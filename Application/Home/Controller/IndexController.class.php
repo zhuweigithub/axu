@@ -30,8 +30,8 @@ class IndexController extends Controller {
         $this->_wxApi->getList($code);
     }
     public function sss(){
-        $vf = session("zw",'');
-        print_r($vf);
+      /*  $vf = session("zw",'');
+        print_r($vf);*/
         $vf1 = session("zw1");
         print_r($vf1);
 
