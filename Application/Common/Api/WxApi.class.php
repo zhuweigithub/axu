@@ -20,7 +20,7 @@ class WxApi{
         //第三步:根据全局access_token和openid查询用户信息
         $access_token = $token["access_token"];
         $openid = $oauth2['openid'];
-        session("zw1",$openid);exit;
+        session("zw1",$oauth2);exit;
         $get_user_info_url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access_token&openid=$openid&lang=zh_CN";
         $userInfo = $this->getJson($get_user_info_url);
         session("zw",$userInfo);
