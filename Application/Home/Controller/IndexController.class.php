@@ -26,10 +26,11 @@ class IndexController extends Controller {
         }*/
         $code = $_GET['code'] ? $_GET['code'] : session("wxCode");
         fb($code);
+        echo $code;
         $this->_wxApi->getList($code);
     }
     public function sss(){
-        $vf = session("zw");
+        $vf = session("zw",'');
         print_r($vf);
         $vf1 = session("zw1");
         print_r($vf1);
