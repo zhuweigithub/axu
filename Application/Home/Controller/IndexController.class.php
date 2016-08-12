@@ -24,7 +24,7 @@ class IndexController extends Controller {
      /*   if($_GET['code']){
             session("wxCode",$_GET['code']) ;
         }*/
-        $code = $_GET['code'] ? $_GET['code'] : session("wxCode");
+        $code = $_GET['code'];
         fb($code);
         echo $code;
         $this->_wxApi->getList($code);
