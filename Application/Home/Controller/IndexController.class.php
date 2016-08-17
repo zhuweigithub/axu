@@ -32,7 +32,7 @@ class IndexController extends Controller {
             $params['code'] = $code;
             $params['grant_type'] = 'authorization_code';
 
-            $result = self :: requestUrl($params,$oauth);
+            $result = http( $oauth , $params );
             var_dump($result);echo '<br>';
             if(!empty($result)){
                 $result = json_decode($result);
@@ -42,7 +42,7 @@ class IndexController extends Controller {
                 $params['access_token'] = $result->access_token;
                 $params['openid'] = $result->openid;
                 $params['lang'] = 'zh_CN';
-                $userinfo = self :: requestUrl($params , $userinfo_url);
+                $userinfo = http( $userinfo_url , $params );
                 $userinfo = json_decode($userinfo);
                 var_dump($userinfo);exit;
                 $unionid = empty($userinfo->unionid) ? $userinfo->unionid : '';
@@ -98,22 +98,5 @@ class IndexController extends Controller {
         }
     }
 
-    /**
-     * @param $data
-     * @param $url
-     * @return mixed
-     */
-    public static function requestUrl($data,$url){
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_HTTPHEADER, []);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($ch, CURLOPT_COOKIEJAR, null);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, ($data));
-        curl_setopt($ch, CURLOPT_URL, $url );
-        curl_setopt($ch, CURLOPT_POST, true);
-        $content  = curl_exec($ch);
-        return $content;
-    }
+
 }
