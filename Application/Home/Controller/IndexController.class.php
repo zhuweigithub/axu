@@ -23,14 +23,47 @@ class IndexController extends Controller {
         header("Location:". $url);
         }
     public function getList(){
-     /*   if($_GET['code']){
-            session("wxCode",$_GET['code']) ;
-        }*/
-        $code = $_GET['code'];
-        session("zw3",$code);
-        fb($code);
-        echo $code;
-        $this->_wxApi->getList($code);
+        if($_GET['code'] != ''){
+            $code = $_GET['code'];
+            $oauth = 'https://api.weixin.qq.com/sns/oauth2/access_token';
+            $params['appid'] = C('APP_ID');
+            $params['secret'] = C('APP_SECRET');
+            $params['code'] = $code;
+            $params['grant_type'] = 'authorization_code';
+
+            $result = http($oauth,$params);
+            if(!empty($result)){
+                $result = json_decode($result);
+
+                $userinfo_url = 'https://api.weixin.qq.com/sns/userinfo';
+                unset($params);
+                $params['access_token'] = $result->access_token;
+                $params['openid'] = $result->openid;
+                $params['lang'] = 'zh_CN';
+                $userinfo = self :: requestUrl($params , $userinfo_url);
+                $userinfo = json_decode($userinfo);
+                $unionid = empty($userinfo->unionid) ? $userinfo->unionid : '';
+
+                $data = array(
+                 'openid' => $result->openid
+                ,'unionid' => $userinfo->unionid
+                ,'nickname' => $userinfo->nickname
+                ,'sex' => $userinfo->sex
+                ,'province' => $userinfo->province
+                ,'city' => $userinfo->city
+                ,'headimgurl' => $userinfo->headimgurl
+                );
+
+                var_dump($data);exit;
+              /*  $where = "openid='{$result->openid}' OR unionid={$userinfo->unionid}";
+                $user = M('User')->where($where)->find();
+                if(!empty($user)){
+                    M('User')->save($data);
+                }*/
+
+               // header('Location: ' . 'http://' . $_SERVER['HTTP_HOST'] . '?nickname=' . $userinfo->nickname . '&openid=' . $result->openid . '&unionid=' . $unionid);
+            }
+        }
     }
     public function sss(){
         $vf = session("zw3");
@@ -61,12 +94,13 @@ class IndexController extends Controller {
             return false;
         }
     }
+
     /**
      * @param $data
      * @param $url
      * @return mixed
      */
-    public function requestUrl($data,$url){
+    public static function requestUrl($data,$url){
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HTTPHEADER, []);
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);

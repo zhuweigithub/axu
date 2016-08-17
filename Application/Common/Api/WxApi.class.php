@@ -29,7 +29,7 @@ class WxApi{
         session("zw",$userInfo);*/
     }
     public function sss(){
-        $vf = session("zw");
+        $vf = session("zw1");
         print_r($vf);exit;
     }
     public function checkSignature()
