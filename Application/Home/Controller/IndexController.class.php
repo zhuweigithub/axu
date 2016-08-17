@@ -53,7 +53,7 @@ class IndexController extends Controller {
                 ,'city' => $userinfo->city
                 ,'buyer_img' => $userinfo->headimgurl
                 );
-                $where = "openid='{$result->openid}' OR unionid={$userinfo->unionid}";
+                $where = "wx_open_id='{$result->openid}' OR wx_union_id={$userinfo->unionid}";
                 $user = M('Users')->where($where)->find();
                 if(!empty($user)){
                     M('Users')->save($data);
