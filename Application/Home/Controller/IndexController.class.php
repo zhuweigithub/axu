@@ -53,10 +53,11 @@ class IndexController extends Controller {
                 ,'city' => $userinfo->city
                 ,'buyer_img' => $userinfo->headimgurl
                 );
-                $where = "wx_open_id='{$result->openid}' OR wx_union_id={$userinfo->unionid}";
-                $user = M('Users')->where($where)->find();
+                //$where = "wx_open_id='{$result->openid}' OR wx_union_id={$userinfo->unionid}";
+              /*  $where = "1=1";
+                $user = M('Users')->where($where)->find();*/
                 if(!empty($user)){
-                    M('Users')->save($data);
+                    M('Users')->add($data);
                 }
 
                // header('Location: ' . 'http://' . $_SERVER['HTTP_HOST'] . '?nickname=' . $userinfo->nickname . '&openid=' . $result->openid . '&unionid=' . $unionid);
