@@ -25,6 +25,7 @@ class IndexController extends Controller {
     public function getList(){
         if($_GET['code'] != ''){
             $code = $_GET['code'];
+            echo $code;echo '<br>';
             $oauth = 'https://api.weixin.qq.com/sns/oauth2/access_token';
             $params['appid'] = "wxd892d9377ca9cabc";
             $params['secret'] = "99c8d09540dfc387aa4c599fd92819d5";
@@ -109,7 +110,7 @@ class IndexController extends Controller {
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_COOKIEJAR, null);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, ($data));
         curl_setopt($ch, CURLOPT_URL, $url );
         curl_setopt($ch, CURLOPT_POST, true);
         $content  = curl_exec($ch);
