@@ -32,6 +32,7 @@ class IndexController extends Controller {
             $params['grant_type'] = 'authorization_code';
 
             $result = self :: requestUrl($params,$oauth);
+            var_dump($result);echo '<br>';
             if(!empty($result)){
                 $result = json_decode($result);
 
@@ -42,6 +43,7 @@ class IndexController extends Controller {
                 $params['lang'] = 'zh_CN';
                 $userinfo = self :: requestUrl($params , $userinfo_url);
                 $userinfo = json_decode($userinfo);
+                var_dump($userinfo);exit;
                 $unionid = empty($userinfo->unionid) ? $userinfo->unionid : '';
 
                 $data = array(
