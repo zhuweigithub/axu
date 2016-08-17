@@ -25,7 +25,6 @@ class IndexController extends Controller {
     public function getList(){
         if($_GET['code'] != ''){
             $code = $_GET['code'];
-            echo $code;echo '<br>';
             $oauth = 'https://api.weixin.qq.com/sns/oauth2/access_token';
             $params['appid'] = "wxd892d9377ca9cabc";
             $params['secret'] = "99c8d09540dfc387aa4c599fd92819d5";
@@ -33,7 +32,6 @@ class IndexController extends Controller {
             $params['grant_type'] = 'authorization_code';
 
             $result = http( $oauth , $params );
-            var_dump($result);echo '<br>';
             if(!empty($result)){
                 $result = json_decode($result);
 
@@ -44,25 +42,22 @@ class IndexController extends Controller {
                 $params['lang'] = 'zh_CN';
                 $userinfo = http( $userinfo_url , $params );
                 $userinfo = json_decode($userinfo);
-                var_dump($userinfo);exit;
                 $unionid = empty($userinfo->unionid) ? $userinfo->unionid : '';
 
                 $data = array(
-                 'openid' => $result->openid
-                ,'unionid' => $userinfo->unionid
-                ,'nickname' => $userinfo->nickname
+                 'wx_open_id' => $result->openid
+                ,'wx_union_id' => $userinfo->unionid
+                ,'buyer_nick' => $userinfo->nickname
                 ,'sex' => $userinfo->sex
                 ,'province' => $userinfo->province
                 ,'city' => $userinfo->city
-                ,'headimgurl' => $userinfo->headimgurl
+                ,'buyer_img' => $userinfo->headimgurl
                 );
-
-                var_dump($data);exit;
-              /*  $where = "openid='{$result->openid}' OR unionid={$userinfo->unionid}";
-                $user = M('User')->where($where)->find();
+                $where = "openid='{$result->openid}' OR unionid={$userinfo->unionid}";
+                $user = M('Users')->where($where)->find();
                 if(!empty($user)){
-                    M('User')->save($data);
-                }*/
+                    M('Users')->save($data);
+                }
 
                // header('Location: ' . 'http://' . $_SERVER['HTTP_HOST'] . '?nickname=' . $userinfo->nickname . '&openid=' . $result->openid . '&unionid=' . $unionid);
             }
