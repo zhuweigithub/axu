@@ -26,8 +26,8 @@ class IndexController extends Controller {
         if($_GET['code'] != ''){
             $code = $_GET['code'];
             $oauth = 'https://api.weixin.qq.com/sns/oauth2/access_token';
-            $params['appid'] = $this->_appId;
-            $params['secret'] = $this->_appSecret;
+            $params['appid'] = "wxd892d9377ca9cabc";
+            $params['secret'] = "99c8d09540dfc387aa4c599fd92819d5";
             $params['code'] = $code;
             $params['grant_type'] = 'authorization_code';
 
