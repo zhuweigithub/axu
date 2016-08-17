@@ -31,7 +31,7 @@ class IndexController extends Controller {
             $params['code'] = $code;
             $params['grant_type'] = 'authorization_code';
 
-            $result = http($oauth,$params);
+            $result = self :: requestUrl($params,$oauth);
             if(!empty($result)){
                 $result = json_decode($result);
 
