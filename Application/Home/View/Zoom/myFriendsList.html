@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>我的收入</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
+<meta name="apple-touch-fullscreen" content="yes">
+<meta HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+<meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<meta HTTP-EQUIV="expires" CONTENT="0"> 
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="stylesheet" href="__PUBLIC__/font/iconfont.css" />
+<link rel="stylesheet" href="__PUBLIC__/css/fontStyle.css" />
+<link rel="stylesheet" href="__PUBLIC__/css/myZoomHeader.css" />
+<style>
+.myFriendsTop{
+	height: 50px;
+	border-bottom:1px solid #EBEBEB;
+	border-top:1px solid #EBEBEB;
+	font-size: 14px;
+	line-height: 50px;
+	padding: 0 8px;
+	color: #222;
+	background: #f8f8f8;
+}
+.myFriendsTop font{
+	color: red;
+	font-size: 20px;
+	padding: 0 8px 0 0;
+}
+.myFriendsUl{
+	background: #EBEBEB;
+}
+.myFriendsLi{
+	background: #fff;
+	margin-bottom: 20px;
+}
+.myFriendsLi .aBox{
+	height: 70px;
+	border: 1px solid red;
+	display: block;
+	position: relative;
+	overflow: hidden;
+	padding: 0 8px;
+}
+.myFriendsLi{
+	font-size: 14px;
+}
+.myFriendsLi img{
+	display: block;
+	width: 64px;
+	height: 64px;
+	position: absolute;
+	top: 2px;
+}
+.myFriendsLi .friendName{
+	position: absolute;
+	top: 8px;
+	left: 88px;
+	width: 180px;
+	border: 1px solid green;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;	
+}
+.myFriendsLi .visitNum{
+	font-size: 12px;
+	position: absolute;
+	bottom: 5px;
+	left: 88px;
+	width: 180px;	
+	border: 1px solid green;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;	
+}
+.myFriendsLi .weixin{
+	position: absolute;
+	bottom: 5px;
+	left: 88px;
+	width: 180px;	
+	border: 1px solid green;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;	
+}
+
+
+.moreTip{
+	text-align: center;
+	font-size: 14px;
+	height: 50px;
+	color: #666;
+}
+
+</style>
+</head>
+<body>
+<header>
+	<div class="zoomHeadDiv">
+		<a href="myZoom.php?userId=12"><img class="headImg" src="{$avatar}"/></a>
+		<p class="niceName">{$niceName}</p>
+		<p class="motto">欢迎来到爱秀网，嘻嘻嘻~</p>
+		<p class="jifen">积分：<font>{$jifen}</font>分</p>
+	</div>
+</header>
+<p class="myFriendsTop">Wo的“人脉”：<font>{$total}</font>个好友</p>
+<ul class="myFriendsUl">
+	<li class="myFriendsLi">
+		<a class="aBox" href="#">
+			<img src="../../../../Public/img/20151102181644_QMNxw.thumb.224_0.jpeg" />
+			<p class="friendName">一只小懒虫一只小懒虫一只小懒虫</p><i class="weixin">wx48756688</i>
+			<p class="visitNum">他访问我<font>5</font>次</p>
+		</a>		
+	</li>
+	
+	
+	
+	
+	
+</ul>
+<p class="moreTip">更多内容</p>
+</body>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.8.2.min.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/js/fastclick.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js" ></script>
+<script>
+$(function(){
+	var nowPage = 1;
+	var num = 8;
+	$(".myIncomeUl").empty();
+	//getIncomeList(num,nowPage);
+	/**************************数据动态加载——开始*************************/   	
+   	var winH = $(window).height(); //页面可视区域高度   	  
+    var scrollHandler = function(){  
+        var pageH = $(document.body).height();  
+        var scrollT = $(window).scrollTop(); //滚动条top   
+        var aa = (pageH-winH-scrollT)/winH;
+        if(aa<0.1){
+           	//getIncomeList(num,(++nowPage));
+        }       
+    };
+    //定义鼠标滚动事件  
+    $(window).scroll(scrollHandler); 	   	
+	/**************************数据动态加载——结束*************************/	
+});
+
+function getIncomeList(num,page){
+	var str='{num:'+num+',page:'+page+'}';
+	var reqJson = eval('('+str+')');
+	
+	$.post('__URL__/incomeListRest',reqJson,
+		function(data){
+			if(data.status==0){
+				//alert("成功！"+data.num);
+				var info=data.info;
+				for(var i=0;i<info.length;i++){
+					var myIncomeLiHtml='<li class="myIncomeLi"><div class="myIncomeLiTop"><i class="icon iconfont"></i>'
+					+'<a class="friendName" href="friendsZoom.php?userId=128">'+info[i]["visiter"]+'（<font>wx43256519</font>）</a>'
+					+'<a class="toukui">偷窥了</a></div><div class="incomeInfo"><a href="__URL__/mySecretImgDetail/secretId/'+info[i]["secretID"]+'">'
+					+'<img class="secretImg" src="'+info[i]["secretImgUrl"]+'"></a><a href="__URL__/mySecretImgDetail/secretId/'+info[i]["secretID"]+'" class="secretName">'
+					+info[i]["secretTitle"]+'</a><p class="secretValue">¥'+info[i]["secretValue"]+'</p></div>'
+					+'<p class="payTime">'+info[i]["visitTime"]+'</p></li>';
+					
+					$('.myIncomeUl').append(myIncomeLiHtml);
+				}
+	
+			}else{
+				alert("失败！");
+			}
+		},
+	"json");
+}
+
+
+</script>
+</html>

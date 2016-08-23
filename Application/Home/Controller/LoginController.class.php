@@ -17,8 +17,8 @@ class LoginController extends Controller{
         $result = $verify -> login( $data );//登录的接口
         fb($result);*/
 		if($data['username']=='18061739088'&&$data['password']=='123456'){
-			$_SESSION['username']='18061739088';
-			$this->display('Zoom:myzoom');
+			$_SESSION['userId']=1;
+			$this->redirect('Zoom/myZoom');
 		}else{
 			//echo "登录失败！";
 			$this->assign('result','用户名或密码不正确！');
@@ -26,9 +26,7 @@ class LoginController extends Controller{
 		}   
     }
 	
-		
-	
-	
+
     public function loginVerify(){
         $this->display();
     }

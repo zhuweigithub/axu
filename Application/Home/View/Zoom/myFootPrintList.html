@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>我的足迹</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
+<meta name="apple-touch-fullscreen" content="yes">
+<meta HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+<meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<meta HTTP-EQUIV="expires" CONTENT="0"> 
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="stylesheet" href="__PUBLIC__/font/iconfont.css" />
+<link rel="stylesheet" href="__PUBLIC__/css/fontStyle.css" />
+<link rel="stylesheet" href="__PUBLIC__/css/myZoomHeader.css" />
+<style>
+.mySecretsTop{
+	height: 50px;
+	border-bottom:1px solid #EBEBEB;
+	border-top:1px solid #EBEBEB;
+	font-size: 14px;
+	line-height: 50px;
+	padding: 0 8px;
+	color: #222;
+	background: #f8f8f8;
+}
+.mySecretsTop font{
+	color: red;
+	font-size: 20px;
+	padding: 0 8px 0 0;
+}
+.myFootPrintUl{
+	background: #EBEBEB;
+}
+.myFootPrintLi{
+	background: #fff;
+	margin-bottom: 20px;
+}
+.myFootPrintLiTop{
+	font-size: 16px;
+	padding: 5px 8px;
+}
+.friendName{
+	float: right;
+}
+.footPrintInfo{
+	position: relative;
+	padding: 5px 8px;
+	background: #f8f8f8;
+}
+.footPrintInfo .secretImg{
+	width: 50px;
+	height: 50px;
+	
+}
+.secretName{
+	max-width: 150px;
+	max-height: 32px;
+	position: absolute;
+	top: 14px;
+	left: 70px;
+	font-size: 12px;
+}
+.state0,.state1{
+	max-width: 80px;
+	color: green;
+	float: right;
+	margin-top: 14px;
+	font-size: 12px;
+}
+.state1{
+	color: #888;
+}
+.payTime{
+	text-align: right;
+	font-size: 11px;
+	color: #777;
+	padding-right: 8px;
+}
+.toukui{
+	color: #888;
+	font-size: 14px;
+}
+
+.moreTip{
+	text-align: center;
+	font-size: 14px;
+	height: 50px;
+	color: #666;
+}
+
+</style>
+</head>
+<body>
+<header>
+	<div class="zoomHeadDiv">
+		<a href="myZoom.php?userId=12"><img class="headImg" src="{$avatar}"/></a>
+		<p class="niceName">{$niceName}</p>
+		<p class="motto">欢迎来到爱秀网，嘻嘻嘻~</p>
+		<p class="signIn" onclick="sign(event)">签到</p>
+		<p class="jifen">积分：<font>{$jifen}</font>分</p>
+	</div>
+</header>
+<p class="mySecretsTop"><i class="icon iconfont"></i>Wo偷看过的：<font>{$count}</font>篇</p>
+<ul class="myFootPrintUl"></ul>
+
+<p class="moreTip">更多内容</p>
+
+</body>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.8.2.min.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/js/fastclick.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js" ></script>
+<script>
+$(function(){
+	var nowPage = 1;
+	var num = 8;
+	$(".myIncomeUl").empty();
+	getFootPrintList(num,nowPage);
+	/**************************数据动态加载——开始*************************/   	
+   	var winH = $(window).height(); //页面可视区域高度   	  
+    var scrollHandler = function(){  
+        var pageH = $(document.body).height();  
+        var scrollT = $(window).scrollTop(); //滚动条top   
+        var aa = (pageH-winH-scrollT)/winH;
+        if(aa<0.1){
+           	getFootPrintList(num,(++nowPage));
+        }       
+    };
+    //定义鼠标滚动事件  
+    $(window).scroll(scrollHandler); 	   	
+	/**************************数据动态加载——结束*************************/	
+});
+
+function getFootPrintList(num,page){
+	var str='{num:'+num+',page:'+page+'}';
+	var reqJson = eval('('+str+')');
+	
+	$.post('__URL__/footPrintListRest',reqJson,
+		function(data){
+			if(data.status==0){
+				//alert("成功！"+data.num);
+				var info=data.info;
+				for(var i=0;i<info.length;i++){
+					if(info[i]["viewState"]==0){
+						var myFootPrintLiHtml='<li class="myFootPrintLi"><div class="myFootPrintLiTop"><a class="toukui">观望了...</a>'
+						+'<a class="friendName" href="friendsZoom.php?userId=128"><i class="icon iconfont"></i>'+info[i]["friendName"]
+						+'（<font>'+info[i]["friendWX"]+'</font>）</a></div><div class="footPrintInfo">'
+						+'<a href="__URL__/otherSharedSecretImg/secretId/'+info[i]["secretID"]+'"><img class="secretImg" src="'+info[i]["secretImgUrl"]+'"></a>'
+						+'<a href="__URL__/otherSharedSecretImg/secretId/'+info[i]["secretID"]+'" class="secretName">'+info[i]["secretTitle"]
+						+'</a><p class="state1">待偷窥...</p></div><p class="payTime">'+info[i]["viewTime"]+'</p></li>';
+					}else{
+						var myFootPrintLiHtml='<li class="myFootPrintLi"><div class="myFootPrintLiTop"><a class="toukui">偷窥了</a>'
+						+'<a class="friendName" href="friendsZoom.php?userId=128"><i class="icon iconfont"></i>'+info[i]["friendName"]
+						+'（<font>'+info[i]["friendWX"]+'</font>）</a></div><div class="footPrintInfo">'
+						+'<a href="__URL__/otherSharedSecretImg/secretId/'+info[i]["secretID"]+'"><img class="secretImg" src="'+info[i]["secretImgUrl"]+'"></a>'
+						+'<a href="__URL__/otherSharedSecretImg/secretId/'+info[i]["secretID"]+'" class="secretName">'+info[i]["secretTitle"]
+						+'</a><p class="state0">已偷窥！</p></div><p class="payTime">'+info[i]["viewTime"]+'</p></li>';						
+					}
+						
+					$('.myFootPrintUl').append(myFootPrintLiHtml);
+				}
+	
+			}else{
+				alert("失败！");
+			}
+		},
+	"json");
+}
+
+
+</script>
+
+
+</html>

@@ -12,7 +12,11 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="stylesheet" href="__PUBLIC__/font/iconfont.css" />
 <link rel="stylesheet" href="__PUBLIC__/css/fontStyle.css" />
+<link rel="stylesheet" href="__PUBLIC__/css/myZoomHeader.css" />
 <style>
+
+/* 我的空间主页样式 */
+
 section{
 	position: relative;
 	height: 100px;
@@ -99,9 +103,18 @@ legend{
 </style>
 </head>
 <body>
-<?php include './Public/myZoomHead.php';?>
+<header>
+	<div class="zoomHeadDiv">
+		<a href="myZoom.php?userId=12"><img class="headImg" src="{$avatar}"/></a>
+		<p class="niceName">{$niceName}</p>
+		<p class="motto">欢迎来到爱秀网，嘻嘻嘻~</p>
+		<p class="signIn" onclick="sign(event)">签到</p>
+		<p class="jifen">积分：<font>{$jifen}</font>分</p>
+	</div>
+</header>
+
 <section>
-	<p class="account">账户余额：<a class="balance">14.2元</a></p>
+	<p class="account">账户余额：<a class="balance">{$balance}元</a></p>
 	<p class="roleTip">注：账户余额满1元即可提取，每次限提整元！</p>
 	<p class="getMoney">提现</p>
 </section>
@@ -110,7 +123,7 @@ legend{
 <div class="myAccount">
 	
 	<div class="incomeDetails">
-		<a href="myIncomeList.php?userId=12">
+		<a href="__URL__/myIncomeList">
 			<div class="myAccountIco">
 				<i class="icon iconfont"></i>
 			</div>
@@ -119,7 +132,7 @@ legend{
 	</div>
 	
 	<div class="payDetails" id="wxtoseebill">
-		<a href="myPublishedList.php?userId=12">
+		<a href="__URL__/myPublishedList">
 			<div class="myAccountIco">
 				<i class="icon iconfont"></i>
 			</div>
@@ -127,7 +140,7 @@ legend{
 		</a>
 	</div>
 	<div class="mySecrets" id="wxtoseebill">
-		<a href="myFootPrintList.php?userId=12">
+		<a href="__URL__/myFootPrintList">
 			<div class="myAccountIco">
 				<i class="icon iconfont"></i>
 			</div>
@@ -135,7 +148,7 @@ legend{
 		</a>
 	</div>
 	<div class="myContacts" id="wxtoseebill">
-		<a href="myFriends.php?userId=12">
+		<a href="__URL__/myFriendsList">
 			<div class="myAccountIco">
 				<i class="icon iconfont"></i>
 			</div>
@@ -147,19 +160,19 @@ legend{
 <div class="xiuBtnDiv">
 	<div class="showSecretImg">秀私图</div>
 </div>
-
-
-
-
 </body>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.8.2.min.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/js/fastclick.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js" ></script>
 <script>
+
 $(function(){
 	$(".showSecretImg").click(function(){
-		location.href="publishSecretImg.php?userId=12";
+		location.href='__URL__/publishSecretImg';
 	})
-})
 	
+});
+
+
 </script>
-
-
 </html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>我发布的内容</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
+<meta name="apple-touch-fullscreen" content="yes">
+<meta HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+<meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<meta HTTP-EQUIV="expires" CONTENT="0"> 
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="stylesheet" href="__PUBLIC__/font/iconfont.css" />
+<link rel="stylesheet" href="__PUBLIC__/css/fontStyle.css" />
+<link rel="stylesheet" href="__PUBLIC__/css/myZoomHeader.css" />
+<style>
+.mySecretsTop{
+	height: 50px;
+	border-bottom:1px solid #EBEBEB;
+	border-top:1px solid #EBEBEB;
+	font-size: 14px;
+	line-height: 50px;
+	padding: 0 8px;
+	color: #222;
+	background: #f8f8f8;
+}
+.mySecretsTop font{
+	color: red;
+	font-size: 20px;
+	padding: 0 8px 0 0;
+}
+.mySecretUl{
+	list-style: none;
+	margin-bottom: 20px;
+	background: #EBEBEB;
+}
+.mySecretUl li{
+	height: 68px;
+	width: 98%;
+	margin: 0 auto 30px auto;
+	position: relative;
+	font-size: 14px;
+	font-family: "微软雅黑";
+	background: #fff;
+}
+.mySecretUl li img{
+	float: left;
+	width: 80px;
+	height: 68px;
+}
+.mySecretUl li p.secretName{
+	position: absolute;
+	left: 88px;
+	top: 20px;
+	max-width: 60%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	font-weight: bold;
+}
+.mySecretUl li p.secretName a{
+	color: #456BBB;
+}
+.mySecretUl li .secretInfo{
+	overflow: hidden;
+}
+.mySecretUl li p.btns{
+	background: #fff;
+	overflow: hidden;
+}
+.mySecretUl li p.btns button{
+	margin-left: 15px;
+	float: right;
+}
+
+.mySecretUl li p.secretTime{
+	position: absolute;
+	left: 88px;
+	top: 45px;
+	max-width: 60%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	font-size: 12px;
+	color: #888;
+}
+.moreTip{
+	text-align: center;
+	font-size: 14px;
+	height: 50px;
+	color: #666;
+}
+.viewBtn{
+	padding: 3px 10px;
+	font-size: 12px;
+	border: 1px solid #005599;
+	float: right;
+	margin-top: 20px;
+	margin-right: 8px;
+	border-radius: 3px;
+}
+
+
+</style>
+</head>
+<body>
+<header>
+	<div class="zoomHeadDiv">
+		<a href="myZoom.php?userId=12"><img class="headImg" src="{$avatar}"/></a>
+		<p class="niceName">{$niceName}</p>
+		<p class="motto">欢迎来到爱秀网，嘻嘻嘻~</p>
+		<p class="jifen">积分：<font>{$jifen}</font>分</p>
+	</div>
+</header>
+<p class="mySecretsTop">Ta发表过的：<font>{$count}</font>篇</p>
+<ul class="mySecretUl"></ul>
+<p class="moreTip">更多内容</p>
+
+</body>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.8.2.min.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/js/fastclick.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/js/common.js" ></script>
+<script>
+$(function(){
+	var nowPage = 1;
+	var num = 8;
+	$(".myIncomeUl").empty();
+	getPublishList(num,nowPage);
+	/**************************数据动态加载——开始*************************/   	
+   	var winH = $(window).height(); //页面可视区域高度   	  
+    var scrollHandler = function(){  
+        var pageH = $(document.body).height();  
+        var scrollT = $(window).scrollTop(); //滚动条top   
+        var aa = (pageH-winH-scrollT)/winH;
+        if(aa<0.1){
+           	getPublishList(num,(++nowPage));
+        }       
+    };
+    //定义鼠标滚动事件  
+    $(window).scroll(scrollHandler); 	   	
+	/**************************数据动态加载——结束*************************/	
+});
+
+function getPublishList(num,page){
+	var str='{num:'+num+',page:'+page+'}';
+	var reqJson = eval('('+str+')');
+
+	$.post('__URL__/publishedListRest',reqJson,
+		function(data){
+			if(data.status==0){
+				//alert("成功！"+data.num);
+				var info=data.info;
+				for(var i=0;i<info.length;i++){
+					var myPublishLiHtml='<li class="mySecretLi"><div class="secretInfo">'
+					+'<a href="__URL__/mySecretImgDetail/secretId/'+info[i]["secretID"]+'"><img src="'+info[i]["secretImgUrl"]+'"></a>'
+					+'<p class="secretName"><a href="__URL__/mySecretImgDetail/secretId/'+info[i]["secretID"]+'">'+info[i]["secretTitle"]+'</a></p>'
+					+'<p class="secretTime">'+info[i]["publishTime"]+'</p>'
+					+'<a class="viewBtn" href="__URL__/mySecretImgDetail/secretId/'+info[i]["secretID"]+'">查看</a></div></li>';
+					
+					$('.mySecretUl').append(myPublishLiHtml);
+				}
+	
+			}else{
+				alert("失败！");
+			}
+		},
+	"json");
+}
+
+
+</script>
+
+
+</html>
