@@ -38,7 +38,7 @@
 }
 .myFriendsLi .aBox{
 	height: 70px;
-	border: 1px solid red;
+	border: 1px solid #ccc;
 	display: block;
 	position: relative;
 	overflow: hidden;
@@ -59,7 +59,6 @@
 	top: 8px;
 	left: 88px;
 	width: 180px;
-	border: 1px solid green;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;	
@@ -68,19 +67,24 @@
 	font-size: 12px;
 	position: absolute;
 	bottom: 5px;
-	left: 88px;
-	width: 180px;	
-	border: 1px solid green;
+	right: 0px;
+	width: 120px;
 	overflow: hidden;
 	white-space: nowrap;
-	text-overflow: ellipsis;	
+	text-overflow: ellipsis;
+	text-align: right;	
 }
+
+.myFriendsLi .visitNum font{
+	color: red;
+	padding: 0 3px;
+}
+
 .myFriendsLi .weixin{
 	position: absolute;
 	bottom: 5px;
 	left: 88px;
-	width: 180px;	
-	border: 1px solid green;
+	width: 110px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;	
@@ -105,19 +109,16 @@
 		<p class="jifen">积分：<font>{$jifen}</font>分</p>
 	</div>
 </header>
-<p class="myFriendsTop">Wo的“人脉”：<font>{$total}</font>个好友</p>
+<p class="myFriendsTop">Wo的“人脉”：<font>{$friendsCount}</font>个好友</p>
 <ul class="myFriendsUl">
 	<li class="myFriendsLi">
 		<a class="aBox" href="#">
-			<img src="../../../../Public/img/20151102181644_QMNxw.thumb.224_0.jpeg" />
-			<p class="friendName">一只小懒虫一只小懒虫一只小懒虫</p><i class="weixin">wx48756688</i>
+			<img src="__PUBLIC__/img/20151102181644_QMNxw.thumb.224_0.jpeg" />
+			<p class="friendName">一只小懒虫</p>
+			<p class="weixin"><i class="icon iconfont"></i><font>wx48756688</font></p>
 			<p class="visitNum">他访问我<font>5</font>次</p>
 		</a>		
 	</li>
-	
-	
-	
-	
 	
 </ul>
 <p class="moreTip">更多内容</p>
@@ -142,7 +143,7 @@ $(function(){
         }       
     };
     //定义鼠标滚动事件  
-    $(window).scroll(scrollHandler); 	   	
+    $(window).scroll(scrollHandler);   	
 	/**************************数据动态加载——结束*************************/	
 });
 

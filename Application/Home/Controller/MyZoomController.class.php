@@ -2,27 +2,31 @@
 namespace Home\Controller;
 use Think\Controller;
 import('Lib.CommonClass.lib_image_imagick');
-class ZoomController extends Controller{
+class MyZoomController extends Controller{
     public function __construct(){
         parent::__construct();
     }
 	
 	public function myZoom(){
 		//如果session为空则退回到登陆界面
-		if(!isset($_SESSION['userId'])||$_SESSION['userId']==''){
-			$this->redirect('Login/index');
-		}	
-		$balance=120;//账户余额，从数据库获取	
-		$niceName='小猪猪';//用户昵称，从数据库获取
-        $jifen=182;//账户余额，从数据库获取
-        $avatar='http://localhost/axu/Public/img/20151102181644_QMNxw.thumb.224_0.jpeg';//用户头像url地址
-		$this->assign('userId',$_SESSION['userId']);		
-		$this->assign('balance',$balance);
-		$this->assign('niceName',$niceName);
-		$this->assign('jifen',$jifen);
-		$this->assign('avatar',$avatar);
+		//$_SESSION['userId']=998;
 		
-		$this->display();
+		if(!isset($_SESSION['userId'])||$_SESSION['userId']==''){
+			$this->display('Tips:welcome');
+		}else{
+			$balance=120;//账户余额，从数据库获取	
+			$niceName='小猪猪';//用户昵称，从数据库获取
+	        $jifen=182;//账户余额，从数据库获取
+	        $avatar='http://localhost/axu/Public/img/20151102181644_QMNxw.thumb.224_0.jpeg';//用户头像url地址
+			$this->assign('userId',$_SESSION['userId']);		
+			$this->assign('balance',$balance);
+			$this->assign('niceName',$niceName);
+			$this->assign('jifen',$jifen);
+			$this->assign('avatar',$avatar);
+			$this->display();
+					
+		}	
+		
 	}
 	
 	/*
@@ -219,186 +223,15 @@ class ZoomController extends Controller{
 	}
 
 
-	/*
-	 * 进入“我的发布”页面的action
-	 */
-	public function myPublishedList(){
-		//如果session为空则退回到登陆界面
-		if(!isset($_SESSION['userId'])||$_SESSION['userId']==''){
-			$this->redirect('Login/index');
-		}
-
-		$niceName='小猪猪';//用户昵称，从数据库获取
-        $jifen=182;//账户余额，从数据库获取
-        $avatar='http://localhost/axu/Public/img/20151102181644_QMNxw.thumb.224_0.jpeg';//用户头像url地址
-		$count=18;
-		
-		//下面的收入详情的数组有数据查询获得				
-
-		$this->assign('niceName',$niceName);
-		$this->assign('jifen',$jifen);
-		$this->assign('avatar',$avatar);
-		$this->assign('count',$count);
-		$this->display();	
-	}
-
-
-	/*
-	 * ajax获取“我的发布”列表的接口
-	 */
-	public function publishedListRest(){
-		
-		$num=$_POST['num'];//获取每页记录数
-		$page=$_POST['page'];//获取请求的页码
-		
-		$arr = array(
-			'0'=>array(
-				"secretID"=>"1",
-				"secretImgUrl"=>"http://localhost/axu/Public/img/riji.jpg",
-				"secretTitle"=>"我的日记1",
-				"publishTime"=>"2016-07-05 22:10:56"	
-			), 
-			'1'=>array(
-				"secretID"=>"2",
-				"secretImgUrl"=>"http://localhost/axu/Public/img/riji.jpg",
-				"secretTitle"=>"我的日记2",
-				"publishTime"=>"2016-07-05 22:10:56"	
-			),
-			'2'=>array(
-				"secretID"=>"3",
-				"secretImgUrl"=>"http://localhost/axu/Public/img/riji.jpg",
-				"secretTitle"=>"我的日记3",
-				"publishTime"=>"2016-07-05 22:10:56"	
-			),
-			'3'=>array(
-				"secretID"=>"4",
-				"secretImgUrl"=>"http://localhost/axu/Public/img/riji.jpg",
-				"secretTitle"=>"我的日记4",
-				"publishTime"=>"2016-07-05 22:10:56"	
-			),
-			'4'=>array(
-				"secretID"=>"5",
-				"secretImgUrl"=>"http://localhost/axu/Public/img/riji.jpg",
-				"secretTitle"=>"我的日记5",
-				"publishTime"=>"2016-07-05 22:10:56"	
-			),
-			'5'=>array(
-				"secretID"=>"6",
-				"secretImgUrl"=>"http://localhost/axu/Public/img/riji.jpg",
-				"secretTitle"=>"我的日记6",
-				"publishTime"=>"2016-07-05 22:10:56"	
-			),
-			'6'=>array(
-				"secretID"=>"7",
-				"secretImgUrl"=>"http://localhost/axu/Public/img/riji.jpg",
-				"secretTitle"=>"我的日记7",
-				"publishTime"=>"2016-07-05 22:10:56"	
-			)
 	
-		);
-		
-		$data['status'] = 0;
-		$data['info'] = $arr;
-		$this->ajaxReturn($data,'JSON');
-		
-	}
 
 
-
-	/*
-	 * 进入“我的足迹”页面的action
-	 */
-	public function myFootPrintList(){
-		//如果session为空则退回到登陆界面
-		if(!isset($_SESSION['userId'])||$_SESSION['userId']==''){
-			$this->redirect('Login/index');
-		}
-		$niceName='小猪猪';//用户昵称，从数据库获取
-        $jifen=182;//账户余额，从数据库获取
-        $avatar='http://localhost/axu/Public/img/20151102181644_QMNxw.thumb.224_0.jpeg';//用户头像url地址
-		$count=22;
-		
-		//下面的收入详情的数组有数据查询获得				
-
-		$this->assign('niceName',$niceName);
-		$this->assign('jifen',$jifen);
-		$this->assign('avatar',$avatar);
-		$this->assign('count',$count);
-		$this->display();	
-	}
-
-
-
-	/*
-	 * ajax获取“我的足迹”列表的接口
-	 */
-	public function footPrintListRest(){		
-		$num=$_POST['num'];//获取每页记录数
-		$page=$_POST['page'];//获取请求的页码
-		
-		$arr = array(
-			'0'=>array(
-				"secretID"=>"1",
-				"secretImgUrl"=>"http://localhost/axu/Public/img/riji.jpg",				
-				"secretTitle"=>"我的日记1",
-				"viewTime"=>"2016-07-05 22:10:56",//查看时间
-				"viewState"=>0,//“0”表示完成支付并查看成功，“1”表示没有完成支付，查看失败
-				"friendName"=>"一棵小草",
-				"friendWX"=>"wx83256519"	
-			), 
-			'1'=>array(
-				"secretID"=>"2",
-				"secretImgUrl"=>"http://localhost/axu/Public/img/riji.jpg",				
-				"secretTitle"=>"我的日记1",
-				"viewTime"=>"2016-07-05 22:10:56",//查看时间
-				"viewState"=>1,//“0”表示完成支付并查看成功，“1”表示没有完成支付，查看失败
-				"friendName"=>"张三",
-				"friendWX"=>"wx69256519"	
-			), 
-			'2'=>array(
-				"secretID"=>"3",
-				"secretImgUrl"=>"http://localhost/axu/Public/img/riji.jpg",				
-				"secretTitle"=>"我的日记1",
-				"viewTime"=>"2016-07-05 22:10:56",//查看时间
-				"viewState"=>1,//“0”表示完成支付并查看成功，“1”表示没有完成支付，查看失败
-				"friendName"=>"小鱼儿",
-				"friendWX"=>"wx21256519"	
-			), 
-			'3'=>array(
-				"secretID"=>"4",
-				"secretImgUrl"=>"http://localhost/axu/Public/img/riji.jpg",				
-				"secretTitle"=>"我的日记1",
-				"viewTime"=>"2016-07-05 22:10:56",//查看时间
-				"viewState"=>0,//“0”表示完成支付并查看成功，“1”表示没有完成支付，查看失败
-				"friendName"=>"无聊的蛐蛐",
-				"friendWX"=>"wx43666519"	
-			), 
-			'4'=>array(
-				"secretID"=>"5",
-				"secretImgUrl"=>"http://localhost/axu/Public/img/riji.jpg",				
-				"secretTitle"=>"我的日记1",
-				"viewTime"=>"2016-07-05 22:10:56",//查看时间
-				"viewState"=>1,//“0”表示完成支付并查看成功，“1”表示没有完成支付，查看失败
-				"friendName"=>"夏日一蟀",
-				"friendWX"=>"wx43254519"	
-			), 
-			'5'=>array(
-				"secretID"=>"6",
-				"secretImgUrl"=>"http://localhost/axu/Public/img/riji.jpg",				
-				"secretTitle"=>"我的日记1",
-				"viewTime"=>"2016-07-05 22:10:56",//查看时间
-				"viewState"=>1,//“0”表示完成支付并查看成功，“1”表示没有完成支付，查看失败
-				"friendName"=>"夏日一蟀",
-				"friendWX"=>"wx43256512"
-			)
 	
-		);
-		
-		$data['status'] = 0;
-		$data['info'] = $arr;
-		$this->ajaxReturn($data,'JSON');
-		
-	}
+
+	
+
+
+	
 
 	/*
 	 * 查看“好友的私密”的action
@@ -447,16 +280,5 @@ class ZoomController extends Controller{
 			
 	}
 	
-	/*
-	 * 进入“我的人脉”页面的action
-	 */
-	public function myFriendsList(){
-		//如果session为空则退回到登陆界面
-		if(!isset($_SESSION['userId'])||$_SESSION['userId']==''){
-			$this->redirect('Login/index');
-		}
-		$this->display();		
-	}
-
 		
 }

@@ -71,6 +71,7 @@ legend{
 	font-size: 12px;
 }
 .showSecretImg{
+	display: block;
 	width: 100px;
 	height: 100px;
 	border: 1px dashed #005599;
@@ -123,7 +124,7 @@ legend{
 <div class="myAccount">
 	
 	<div class="incomeDetails">
-		<a href="__URL__/myIncomeList">
+		<a href="__APP__/home/MyIncome/myIncome">
 			<div class="myAccountIco">
 				<i class="icon iconfont"></i>
 			</div>
@@ -132,7 +133,7 @@ legend{
 	</div>
 	
 	<div class="payDetails" id="wxtoseebill">
-		<a href="__URL__/myPublishedList">
+		<a href="__APP__/home/MyPublish/myPublish">
 			<div class="myAccountIco">
 				<i class="icon iconfont"></i>
 			</div>
@@ -140,7 +141,7 @@ legend{
 		</a>
 	</div>
 	<div class="mySecrets" id="wxtoseebill">
-		<a href="__URL__/myFootPrintList">
+		<a href="__APP__/home/MyFootPrints/myFootPrints">
 			<div class="myAccountIco">
 				<i class="icon iconfont"></i>
 			</div>
@@ -148,7 +149,7 @@ legend{
 		</a>
 	</div>
 	<div class="myContacts" id="wxtoseebill">
-		<a href="__URL__/myFriendsList">
+		<a href="__APP__/home/MyFriends/myFriends">
 			<div class="myAccountIco">
 				<i class="icon iconfont"></i>
 			</div>
@@ -158,21 +159,11 @@ legend{
 </div>
 </fieldset>
 <div class="xiuBtnDiv">
-	<div class="showSecretImg">秀私图</div>
+	<a class="showSecretImg" href="__APP__/home/PublishSImg/publishSImg">秀私图</a>
 </div>
 </body>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.8.2.min.js" ></script>
 <script type="text/javascript" src="__PUBLIC__/js/fastclick.js" ></script>
 <script type="text/javascript" src="__PUBLIC__/js/common.js" ></script>
-<script>
 
-$(function(){
-	$(".showSecretImg").click(function(){
-		location.href='__URL__/publishSecretImg';
-	})
-	
-});
-
-
-</script>
 </html>

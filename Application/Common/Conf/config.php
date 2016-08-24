@@ -10,6 +10,12 @@ return array(
     'URL_MODEL'            => 3, //URL模式
     'VAR_URL_PARAMS'       => '', // PATHINFO URL参数变量
     'URL_PATHINFO_DEPR'    => '/', //PATHINFO URL分割符
+    /* 模板相关配置 */
+    'TMPL_PARSE_STRING' => array(
+        '__IMG__'    => __ROOT__ . '/Public/images',
+        '__CSS__'    => __ROOT__ . '/Public/css',
+        '__JS__'     => __ROOT__ . '/Public/js',
+    ),
 
     /* 数据库配置 */
     'DB_TYPE'   => 'mysqli', // 数据库类型
@@ -21,5 +27,8 @@ return array(
     'DB_PREFIX' => 'ax_', // 数据库表前缀
 
     /*加密字符串*/
-    "PASSWORD_SUFFIX" => 'zw_info'
+    "PASSWORD_SUFFIX" => 'zw_info',
+    "APP_ID" => 'wxd892d9377ca9cabc',
+    "APP_SECRET" => '99c8d09540dfc387aa4c599fd92819d5',
+
 );

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>xxx的私密照</title>
+<title>欢迎来到蚂蚁秀秀</title>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
 <meta name="apple-touch-fullscreen" content="yes">
@@ -10,8 +10,8 @@
 <meta HTTP-EQUIV="expires" CONTENT="0"> 
 <meta content="yes" name="apple-mobile-web-app-capable">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<link rel="stylesheet" href="font/iconfont.css" />
-<link rel="stylesheet" href="css/fontStyle.css" />
+<link rel="stylesheet" href="__PUBLIC__/font/iconfont.css" />
+<link rel="stylesheet" href="__PUBLIC__/css/fontStyle.css" />
 <style>
 *{
 	padding: 0;
@@ -68,7 +68,7 @@ img{border: 0;}
 	height: 9.5rem;
 	border: 1px dashed #005599;
 	text-align: center;
-	line-height: 8.8rem;
+	line-height: 9.2rem;
 	font-size: 30px;
 	color: #005599;
 	float: left;
@@ -83,7 +83,7 @@ img{border: 0;}
 	display: block;
 	width: 90%;
 	margin: 10px auto;
-	height: 28px;
+	height: 40px;
 	border: 0;
 	border-bottom: 1px solid #ccc;
 	padding: 2px 8px;
@@ -143,9 +143,9 @@ img{border: 0;}
 </style>
 </head>
 <body>
-<section>
+<form action="__APP__/home/PreviewSImg/previewSImg" method="post" enctype="multipart/form-data">
 	<div class="fabuBox">
-		<p class="secretTitle">私图标题：<input type="text" /></p>
+		<p class="secretTitle">私图标题：<input type="text" name="publishTitle" /></p>
 		<div class="secretImgBox">
 			<p class="aLabel">私图：</p>
 			<div class="imgsBox">
@@ -156,20 +156,20 @@ img{border: 0;}
 		</div>
 		<div class="secretIntro">
 			<p class="aLabel">说点什么：</p>
-			<textarea placeholder="说点什么暗示一下你的小伙伴~~"></textarea>
+			<textarea name="secretIntro" placeholder="说点什么暗示一下你的小伙伴~~"></textarea>
 		</div>
 		<div class="secretValue">
 			<p class="aLabel">此秘密的价值：</p>
-			<select>
+			<select name="minValue">
 				<option value="0">0</option>
-				<option value="0">1</option>
-				<option value="0">2</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
 			</select>
 			---
-			<select>
+			<select name="maxValue">
 				<option value="0">0</option>
-				<option value="0">1</option>
-				<option value="0">2</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
 			</select>
 			元
 		</div>
@@ -179,13 +179,12 @@ img{border: 0;}
 			您的好友如果想要查看此秘密需随机的支付你设置
 			的价格区间的某个额度，作为打赏！嘻嘻嘻~~~
 		</div>
-		<button class="fabu" onclick="fabu()">发布</button>
-		
+		<input class="fabu" type="submit" value="发布" />		
 	</div>
-</section>
+</form>
 </body>
-<script type="text/javascript" src="js/jquery.min.js" ></script>
-<script type="text/javascript" src="js/fastclick.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/js/fastclick.js" ></script>
 <script>
 var fz = $(window).width()/640*16;
 $("html").css("fontSize",fz);
