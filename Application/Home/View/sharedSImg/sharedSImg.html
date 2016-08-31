@@ -10,8 +10,8 @@
 <meta HTTP-EQUIV="expires" CONTENT="0"> 
 <meta content="yes" name="apple-mobile-web-app-capable">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<link rel="stylesheet" href="/axu/Public/font/iconfont.css" />
-<link rel="stylesheet" href="/axu/Public/css/fontStyle.css" />
+<link rel="stylesheet" href="__PUBLIC__/font/iconfont.css" />
+<link rel="stylesheet" href="__PUBLIC__/css/fontStyle.css" />
 <style>
 *{
 	padding: 0;
@@ -90,9 +90,9 @@ img{border: 0;}
 }
 .sharedBt{
 	width: 40%;
-	height: 46px;
+	height: 30px;
 	text-align: center;
-	line-height: 46px;
+	line-height: 30px;
 	border: 1px solid #ccc;
 	margin: 30px auto 60px auto;
 	border-radius: 3px;
@@ -120,13 +120,14 @@ img{border: 0;}
 		<div class="secretIntr">{$secretIntro}</div>
 		<p class="secretValue"><a>私照价值：</a>{$minValue} ~ {$maxValue}元（随机）</p>
 	</div>
-	<p class="sharedBt" onclick="sharedTo()">转发到</p>
+	<p class="peepBt" onclick="peepSImg()">我要看</p>
 </section>
 </body>
 <script>
-function sharedTo(){
-	sharedSImgUrl="http://www.aixiunet.com/sharedSImg.html";//这儿是分享后的页面的链接地址	
-	alert('调微信转发接口！');
+//“偷窥”人家的私密照
+function peepSImg(){
+	
+	alert('调微信支付接口！');
 }
 	
 </script>

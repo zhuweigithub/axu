@@ -1,0 +1,57 @@
+<layout name="Layout/Default/col" />
+<header>
+    <div class="zoomHeadDiv">
+        <a href="myZoom.php?userId=12"><img class="headImg" src=""/></a>
+        <p class="niceName">{$niceName}</p>
+        <p class="motto">欢迎来到爱秀网，嘻嘻嘻~</p>
+        <p class="signIn" onclick="sign(event)">签到</p>
+        <p class="jifen">积分：<font>{$jifen}</font>分</p>
+    </div>
+</header>
+<section>
+	<p class="account">账户余额：<a class="balance">{$balance}元</a></p>
+	<p class="roleTip">注：账户余额满1元即可提取，每次限提整元！</p>
+	<p class="getMoney">提现</p>
+</section>
+<fieldset>
+<legend>我的空间</legend>
+<div class="myAccount">
+	
+	<div class="incomeDetails">
+		<a href="__URL__/myIncomeList">
+			<div class="myAccountIco">
+				<i class="icon iconfont"></i>
+			</div>
+			<div class="myAccountTitle">收入详情</div>
+		</a>
+	</div>
+	
+	<div class="payDetails" id="wxtoseebill">
+		<a href="__URL__/myPublishedList">
+			<div class="myAccountIco">
+				<i class="icon iconfont"></i>
+			</div>
+			<div class="myAccountTitle">我的发布</div>
+		</a>
+	</div>
+	<div class="mySecrets" id="wxtoseebill">
+		<a href="__URL__/myFootPrintList">
+			<div class="myAccountIco">
+				<i class="icon iconfont"></i>
+			</div>
+			<div class="myAccountTitle">我的足迹</div>
+		</a>
+	</div>
+	<div class="myContacts" id="wxtoseebill">
+		<a href="__URL__/myFriendsList">
+			<div class="myAccountIco">
+				<i class="icon iconfont"></i>
+			</div>
+			<div class="myAccountTitle">我的人脉</div>
+		</a>
+	</div>		
+</div>
+</fieldset>
+<div class="xiuBtnDiv">
+	<div class="showSecretImg">秀私图</div>
+</div>

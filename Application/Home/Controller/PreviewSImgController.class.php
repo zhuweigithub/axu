@@ -11,110 +11,58 @@ class PreviewSImgController extends Controller{
 	 * 进入“收入详情”页面的action
 	 */
     public function previewSImg(){
+    	header("content-type:text/html; charset=utf-8"); 
     	//如果session为空则退回到登陆界面
 		if(!isset($_SESSION['userId'])||$_SESSION['userId']==''){
 			$this->display('Tips:welcome');
 		}else{
+			$imgArr=array();
 			
 			$publishTitle = isset($_POST['publishTitle'])?$_POST['publishTitle']:'';
-			$secretIntro = isset($_POST['secretIntro'])?$_POST['secretIntro']:'';			
+			$secretIntro = isset($_POST['secretIntro'])?$_POST['secretIntro']:'';		
 			$minValue = isset($_POST['minValue'])?$_POST['minValue']:'';
 			$maxValue = isset($_POST['maxValue'])?$_POST['maxValue']:'';
-			
-						
-			$this->assign('publishTitle',$publishTitle);
-			$this->assign('secretIntro',$secretIntro);
-			$this->assign('minValue',$minValue);
-			$this->assign('maxValue',$maxValue);
-			
-		    $dest_folder   =  "Public/upload/";
+
+		    $dest_folder = "Public/upload/";
 		 	if(!file_exists($dest_folder)){
 		        mkdir($dest_folder);
 		 	}
-			
-			$maxsize=2000000; //2M
-			//step 2 使用$_FILES["pic"]["size"] 限制大小 单位字节 2M=2000000
-			if($_FILES["img"]["size"] > $maxsize ) {
-			  echo "<script type='text/javascript'>alert('上传的文件太大，不能超过{$maxsize}字节');history.back();</script>";
-			  exit;
-			}else{
-				$allowtype=array("png", "gif", "jpg", "jpeg");
-				
-				foreach($_FILES["fileselect"]["error"] as $key => $error){
-				    if ($error == UPLOAD_ERR_OK){
-				    	$arr=explode(".",$_FILES["fileselect"]["name"]);
-						$hz=$arr[count($arr)-1];
-						if(!in_array($hz,$allowtype)){
-							echo "<script type='text/javascript'>alert('这是不允许的类型');history.back();</script>";
-						    exit;
-						}
-						$randname=date("Y").date("m").date("d").date("H").date("i").date("s").rand(100, 999).".".$hz;
-				        //$tmp_name = $_FILES["fileselect"]["tmp_name"][$key];//按文件上传名保存
-				        $name = $_FILES["fileselect"]["name"][$key];
-				      	$uploadfile = $dest_folder.$name;
-				        move_uploaded_file($tmp_name, $uploadfile);
-				    }else{
-				    	echo "<script type='text/javascript'>alert('上传失败');history.back();</script>";
-					}
 					
-				}
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+			foreach($_FILES["fileselect"]["error"] as $key => $error){
+			    if ($error == UPLOAD_ERR_OK){
+			    	$arr=explode(".",$_FILES["fileselect"]["name"][$key]);
+					$hz=$arr[count($arr)-1];
+					
+					$randname=date("Y").date("m").date("d").date("H").date("i").date("s").rand(100, 999).".".$hz;//按时间戳保存
+			        $tmp_name = $_FILES["fileselect"]["tmp_name"][$key];
+			        $name = $_FILES["fileselect"]["name"][$key];//按文件上传名保存
+			      	$uploadfile = $dest_folder.$randname;
+			        move_uploaded_file($tmp_name, $uploadfile);
+					$imgArr[$key]='/axu/Public/upload/'.$randname;
+					
+			    }else{
+			    	echo "<script type='text/javascript'>alert('文件"+$name+"上传失败！');history.back();</script>";
+					exit;
+				}					
+			}   
 
-				
-				
-			
-				    
-				      //将临时位置的文件移动到指定的目录上即可
-				    if(is_uploaded_file($_FILES["img"]["tmp_name"])){
-				        if(move_uploaded_file($_FILES["img"]["tmp_name"],$filepath.$randname)){
-				          	echo "<script type='text/javascript'>history.back();</script>";
-				         	session_start();
-				          	$_SESSION['images'] = $fileimgweb.$randname;
-				        }else{
-				          	
-				        }
-				    }else{
-				        echo"<script type='text/javascript'>alert('不是一个上传文件');history.back();</script>";
-				    }   
-				}
-				
-				
-				
-				
-			}
-			
-			
-
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			$this->assign('maxValue',$_FILES["fileselect"]["tmp_name"][0]);		
-			$this->display();
 		}
+
+		//下面是造的假数据
+		$avatar='/axu/Public/img/3.jpg';
+		$niceName='小猪猪';
+		$publishTime='2016-08-25';
+
+		$this->assign('avatar',$avatar);//发布人头像，数据库获得
+		$this->assign('niceName',$niceName);//发布人昵称，数据库获得
+		$this->assign('publishTime',$publishTime);//发布时间，数据库获得
 		
-    }
+		$this->assign('publishTitle',$publishTitle);//发布的私密照“标题”
+		$this->assign('secretIntro',$secretIntro);//发布的私密照“说说”
+		$this->assign('minValue',$minValue);//发布的私密照“最小价值”
+		$this->assign('maxValue',$maxValue);//发布的私密照“最大价值”
+	
+		$this->assign('imgArr',$imgArr);//发布的私密照链接地址，发布人自己发布预览的是原图	
+		$this->display();
+	}
 }

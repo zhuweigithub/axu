@@ -9,7 +9,7 @@ class MyZoomController extends Controller{
 	
 	public function myZoom(){
 		//如果session为空则退回到登陆界面
-		//$_SESSION['userId']=998;
+		$_SESSION['userId']=998;
 		
 		if(!isset($_SESSION['userId'])||$_SESSION['userId']==''){
 			$this->display('Tips:welcome');
