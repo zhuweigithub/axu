@@ -1,18 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>我的足迹</title>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
-<meta name="apple-touch-fullscreen" content="yes">
-<meta HTTP-EQUIV="pragma" CONTENT="no-cache"> 
-<meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
-<meta HTTP-EQUIV="expires" CONTENT="0"> 
-<meta content="yes" name="apple-mobile-web-app-capable">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<link rel="stylesheet" href="__PUBLIC__/font/iconfont.css" />
-<link rel="stylesheet" href="__PUBLIC__/css/fontStyle.css" />
-<link rel="stylesheet" href="__PUBLIC__/css/myZoomHeader.css" />
+<layout name="Layout/Default/col" />
 <style>
 .mySecretsTop{
 	height: 50px;
@@ -90,26 +76,11 @@
 }
 
 </style>
-</head>
-<body>
-<header>
-	<div class="zoomHeadDiv">
-		<a href="myZoom.php?userId=12"><img class="headImg" src="{$avatar}"/></a>
-		<p class="niceName">{$niceName}</p>
-		<p class="motto">欢迎来到爱秀网，嘻嘻嘻~</p>
-		<p class="signIn" onclick="sign(event)">签到</p>
-		<p class="jifen">积分：<font>{$jifen}</font>分</p>
-	</div>
-</header>
 <p class="mySecretsTop"><i class="icon iconfont"></i>Wo偷看过的：<font>{$count}</font>篇</p>
 <ul class="myFootPrintUl"></ul>
 
 <p class="moreTip">更多内容</p>
 
-</body>
-<script type="text/javascript" src="__PUBLIC__/js/jquery-1.8.2.min.js" ></script>
-<script type="text/javascript" src="__PUBLIC__/js/fastclick.js" ></script>
-<script type="text/javascript" src="__PUBLIC__/js/common.js" ></script>
 <script>
 $(function(){
 	var nowPage = 1;
@@ -169,6 +140,3 @@ function getFootPrintList(num,page){
 
 
 </script>
-
-
-</html>

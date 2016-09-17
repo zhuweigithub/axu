@@ -2,7 +2,7 @@
 namespace Home\Controller;
 use Think\Controller;
 import('Lib.CommonClass.lib_image_imagick');
-class MyFootPrintsController extends Controller{
+class MyFootPrintsController extends FatherController{
     public function __construct(){
         parent::__construct();
     }
@@ -16,9 +16,12 @@ class MyFootPrintsController extends Controller{
 		if(!isset($_SESSION['userId'])||$_SESSION['userId']==''){
 			$this->display('Tips:welcome');
 		}else{
-			$niceName='小猪猪';//用户昵称，从数据库获取
-	        $jifen=182;//账户余额，从数据库获取
-	        $avatar='http://localhost/axu/Public/img/20151102181644_QMNxw.thumb.224_0.jpeg';//用户头像url地址
+            $this->getUser();
+            $result = $this->userMessage;
+            $niceName = $this->gStr($result[0]['buyer_nick']);//用户昵称，从数据库获取
+            $jifen = $result[0]['integral'];//账户余额，从数据库获取
+            $avatar = 'http://localhost/axu/Public/img/20151102181644_QMNxw.thumb.224_0.jpeg';//用户头像url地址
+            $avatar =  empty( $result[0]['buyer_img'] ) ? $avatar : $result[0]['buyer_img'];
 			$count=22;
 			
 			//下面的收入详情的数组有数据查询获得	

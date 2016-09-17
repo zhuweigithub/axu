@@ -2,7 +2,7 @@
 namespace Home\Controller;
 use Think\Controller;
 import('Lib.CommonClass.lib_image_imagick');
-class MyZoomController extends Controller{
+class ZoomController extends FatherController{
     public function __construct(){
         parent::__construct();
     }
@@ -14,11 +14,14 @@ class MyZoomController extends Controller{
 		if(!isset($_SESSION['userId'])||$_SESSION['userId']==''){
 			$this->display('Tips:welcome');
 		}else{
-			$balance=120;//账户余额，从数据库获取	
-			$niceName='小猪猪';//用户昵称，从数据库获取
-	        $jifen=182;//账户余额，从数据库获取
-	        $avatar='http://localhost/axu/Public/img/20151102181644_QMNxw.thumb.224_0.jpeg';//用户头像url地址
-			$this->assign('userId',$_SESSION['userId']);		
+            $this->getUser();
+            $result = $this->userMessage;
+			$balance = round($result[0]['balance']/100,2);//账户余额，从数据库获取
+			$niceName = $this->gStr($result[0]['buyer_nick']);//用户昵称，从数据库获取
+	        $jifen = $result[0]['integral'];//账户余额，从数据库获取
+	        $avatar = 'http://localhost/axu/Public/img/20151102181644_QMNxw.thumb.224_0.jpeg';//用户头像url地址
+            $avatar =  empty( $result[0]['buyer_img'] ) ? $avatar : $result[0]['buyer_img'];
+			$this->assign('userId',$_SESSION['userId']);
 			$this->assign('balance',$balance);
 			$this->assign('niceName',$niceName);
 			$this->assign('jifen',$jifen);
@@ -28,6 +31,7 @@ class MyZoomController extends Controller{
 		}	
 		
 	}
+
 	
 	/*
 	 * 进入“收入详情”页面的action
@@ -58,6 +62,7 @@ class MyZoomController extends Controller{
 		
 		$num=$_POST['num'];//获取每页记录数
 		$page=$_POST['page'];//获取请求的页码
+
 		
 		$arr = array(
 			'0'=>array(

@@ -16,6 +16,7 @@ class IndexController extends FatherController {
 
     }
     public function index(){
+		exit;
             $arr['nickname'] = "111";
             $arr['openid'] = "ovrgAv3nbdTq4r_tHZePpz3tLvlw";
             $arr['buyer_img'] = "http://wx.qlogo.cn/mmopen/e5T4Ra5arzSE5T0pibQMlNnRMNsGcrU1x5oD3YTlrA995dwFeCIlGBpfLUSj08jR21J0FbXH3lFBibZAU4obySqiccUJSbtY6cE";
