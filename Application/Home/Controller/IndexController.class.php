@@ -15,6 +15,7 @@ class IndexController extends FatherController {
         parent::__construct();
 
     }
+    
     public function index(){
 		exit;
             $arr['nickname'] = "111";
