@@ -18,7 +18,7 @@ class MyIncomeController extends FatherController{
 			$totalIncome=126.8;//wo的收入总计，从数据库获取 $this->getUser();
             $this->getUser();
             $result = $this->userMessage;
-            $niceName = $this->gStr($result[0]['buyer_nick']);//用户昵称，从数据库获取
+            $niceName = $this->gStr($result[0]['buyer_nick']);//用户昵称，从数据库获取  
             $jifen = $result[0]['integral'];//账户余额，从数据库获取
             $avatar = 'http://localhost/axu/Public/img/20151102181644_QMNxw.thumb.224_0.jpeg';//用户头像url地址
             $avatar =  empty( $result[0]['buyer_img'] ) ? $avatar : $result[0]['buyer_img'];

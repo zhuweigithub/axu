@@ -20,7 +20,7 @@ class PreviewSImgController extends Controller{
 			
 			$publishTitle = isset($_POST['publishTitle'])?$_POST['publishTitle']:'';
 			$secretIntro = isset($_POST['secretIntro'])?$_POST['secretIntro']:'';		
-			$minValue = isset($_POST['minValue'])?$_POST['minValue']:'';
+			$minValue = isset($_POST['minValue'])?$_POST['minValue']:'';    
 			$maxValue = isset($_POST['maxValue'])?$_POST['maxValue']:'';
 
 		    $dest_folder = "Public/upload/";
