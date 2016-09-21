@@ -25,7 +25,7 @@ class ZoomController extends FatherController{
 			$this->assign('balance',$balance);
 			$this->assign('niceName',$niceName);
 			$this->assign('jifen',$jifen);
-			$this->assign('avatar',$avatar);
+			$this->assign('avatar',$avatar);   
 			$this->display();
 					
 		}	
