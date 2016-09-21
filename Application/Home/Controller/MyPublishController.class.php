@@ -12,7 +12,7 @@ class MyPublishController extends FatherController{
 	 */
 	public function myPublish(){
 		//如果session为空则退回到登陆界面
-		if(!isset($_SESSION['userId'])||$_SESSION['userId']==''){
+		if(!isset($_SESSION['userId'])||$_SESSION['userId']==''){ 
 			$this->display('Tips:welcome');
 		}else{
             $this->getUser();
