@@ -6,7 +6,7 @@ class ZoomController extends FatherController{
     public function __construct(){
         parent::__construct();
     }
-	
+   	
 	public function myZoom(){
 		//如果session为空则退回到登陆界面
 		$_SESSION['userId']=998;
