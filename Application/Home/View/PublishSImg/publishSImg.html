@@ -1,4 +1,17 @@
-<layout name="Layout/Default/col" />
+<!DOCTYPE html>
+<html>
+<head>
+<title>欢迎来到蚂蚁秀秀</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0">
+<meta name="apple-touch-fullscreen" content="yes">
+<meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+<meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<meta HTTP-EQUIV="expires" CONTENT="0">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="stylesheet" href="__PUBLIC__/font/iconfont.css" />
+<link rel="stylesheet" href="__PUBLIC__/css/fontStyle.css" />
 <style>
 *{
 	padding: 0;
@@ -148,13 +161,11 @@ img{border: 0;}
 		<div class="secretValue">
 			<p class="aLabel">此秘密的价值：</p>
 			<select name="minValue">
-				<option value="0">0</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 			</select>
 			---
 			<select name="maxValue">
-				<option value="0">0</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 			</select>
@@ -169,7 +180,10 @@ img{border: 0;}
 		<p id="fabu">发布</p>
 	</div>
 </form>
-
+</body>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/js/fastclick.js" ></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
 var fz = $(window).width()/640*16;
 $("html").css("fontSize",fz);
@@ -188,103 +202,51 @@ $.fn.triggerFastClick=function(){
 function addImg(obj){
 	$("#fileImage").triggerFastClick("click");
 }
-
 function uploadImg(e){
-	$('#addImgBtn').siblings().remove();
-	var len = e.target.files.length;
-	if(len>3){
-		//len=3;
-		alert('亲，最多上传3张图片！');
-	}else{
-		for(var i=0;i<len;i++){
-	        var file = e.target.files.item(i);
-		    if(!(/^image\/.*$/i.test(file.type))){
-		        continue;//不是图片 就跳出这一次循环
-		    }
-			if(file.size>2000000){
-				continue;//图片超过2M 就跳出这一次循环
-			}	    
-	        //实例化FileReader API
-	        var freader = new FileReader();
-	   	 	freader.readAsDataURL(file);
-	        freader.onload=function(e){
-	        	$('#addImgBtn').before('<div class="imgDiv"><img src="'+e.target.result+'" /><i onclick="delImg(this)" class="icon iconfont"></i></div>');
-	        }
-	        //alert(document.getElementById('fileImage').files[0].size);
-	    }
-		$('#fabu').one('click',function(){
-			
-			$('#secretForm').submit();
-		});
-	}	
+    var file = e.target.files.item(0);
+    if(!(/^image\/.*$/i.test(file.type))){
+        alert("请上传图片！");return;
+    }
+    if(file.size>2000000){
+        alert("图片必须小于2M！");return;
+    }
+    //实例化FileReader API
+    var freader = new FileReader();
+    freader.readAsDataURL(file);
+    freader.onload=function(e){
+        console.log(e.target.result);
+        $('#addImgBtn').before('<div class="imgDiv"><img src="'+e.target.result+'" /><i onclick="delImg(this)" class="icon iconfont"></i></div>');
+        var lens = $(".imgDiv").length;
+        if(lens >= 3){
+            $("#addImgBtn").hide();
+        }
+    }
 }
+$('#fabu').on('click',function(){
+    var publishTitle =  $("input[name='publishTitle']").val();
+    if(!publishTitle){
+        alert("秘密标题不能为空！");return false;
+    }
+    var imgDiv =  $(".imgDiv").html();
+    if(!imgDiv){
+        alert("图片不能为空！");return false;
+    }
+    var secretIntro =  $("textarea[name='secretIntro']").val();
+    alert(secretIntro);
+    if(!secretIntro){
+        alert("勾引一下把！");return false;
+    }
+
+    $('#secretForm').submit();
+});
 
 function delImg(obj){
 	$(obj).parent().remove();
+    var lens = $(".imgDiv").length;
+    if(lens < 3){
+        $("#addImgBtn").show(500);
+    }
 }
-
-  /*
-   * 注意：
-   * 1. 所有的JS接口只能在公众号绑定的域名下调用，公众号开发者需要先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。
-   * 2. 如果发现在 Android 不能分享自定义内容，请到官网下载最新的包覆盖安装，Android 自定义分享接口需升级至 6.0.2.58 版本及以上。
-   * 3. 常见问题及完整 JS-SDK 文档地址：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
-   *
-   * 开发中遇到问题详见文档“附录5-常见错误及解决办法”解决，如仍未能解决可通过以下渠道反馈：
-   * 邮箱地址：weixin-open@qq.com
-   * 邮件主题：【微信JS-SDK反馈】具体问题
-   * 邮件内容说明：用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
-   */
-wx.config({
-    debug: true,
-    appId: '<?php echo $signPackage["appId"];?>',
-	timestamp: '<?php echo $signPackage["timestamp"];?>',
-	nonceStr: '<?php echo $signPackage["nonceStr"];?>',
-	signature: '<?php echo $signPackage["signature"];?>',
-	jsApiList: [
-  		// 所有要调用的 API 都要加到这个列表中
-      	'checkJsApi',
-        'onMenuShareTimeline',
-        'onMenuShareAppMessage',
-        'onMenuShareQQ',
-      	'onMenuShareQZone',
-        'onMenuShareWeibo',
-        'hideMenuItems',
-        'showMenuItems',
-        'hideAllNonBaseMenuItem',
-        'showAllNonBaseMenuItem',
-        'translateVoice',
-        'startRecord',
-        'stopRecord',
-        'onRecordEnd',
-        'playVoice',
-        'pauseVoice',
-        'stopVoice',
-        'uploadVoice',
-        'downloadVoice',
-        'chooseImage',
-        'previewImage',
-        'uploadImage',
-        'downloadImage',
-        'getNetworkType',
-        'openLocation',
-        'getLocation',
-        'hideOptionMenu',
-        'showOptionMenu',
-        'closeWindow',
-        'scanQRCode',
-        'chooseWXPay',
-        'openProductSpecificView',
-        'addCard',
-        'chooseCard',
-        'openCard'
-    ]
-});
-
-
-wx.ready(function(){
-    
-	
-});
-
-
 </script>
+
+</html>

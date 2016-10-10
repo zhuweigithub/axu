@@ -1,6 +1,8 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
+use Think\Exception;
+
 import('Lib.CommonClass.lib_image_imagick');
 class PreviewSImgController extends Controller{
     public function __construct(){
@@ -27,24 +29,23 @@ class PreviewSImgController extends Controller{
 		 	if(!file_exists($dest_folder)){
 		        mkdir($dest_folder);
 		 	}
-					
-			foreach($_FILES["fileselect"]["error"] as $key => $error){
-			    if ($error == UPLOAD_ERR_OK){
+					dump($_FILES);
+			foreach($_FILES["fileselect"]["name"] as $key=>$val){
 			    	$arr=explode(".",$_FILES["fileselect"]["name"][$key]);
 					$hz=$arr[count($arr)-1];
-					
 					$randname=date("Y").date("m").date("d").date("H").date("i").date("s").rand(100, 999).".".$hz;//按时间戳保存
 			        $tmp_name = $_FILES["fileselect"]["tmp_name"][$key];
 			        $name = $_FILES["fileselect"]["name"][$key];//按文件上传名保存
 			      	$uploadfile = $dest_folder.$randname;
-			        move_uploaded_file($tmp_name, $uploadfile);
-					$imgArr[$key]='/axu/Public/upload/'.$randname;
-					
-			    }else{
-			    	echo "<script type='text/javascript'>alert('文件"+$name+"上传失败！');history.back();</script>";
-					exit;
-				}					
-			}   
+                    try{
+                        move_uploaded_file($tmp_name, $uploadfile);
+                    }catch (Exception $e){
+                        throw $e;
+                    }
+					$imgArr[$key]='/Public/upload/'.$randname;
+
+			}
+         // print_r($imgArr);
 
 		}
 
