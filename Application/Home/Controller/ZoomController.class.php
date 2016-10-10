@@ -79,7 +79,7 @@ class ZoomController extends FatherController{
 				"visiter"=>"风筝孩子王2",
 				"visiterWX"=>"wx468955988",
 				"secretImgUrl"=>"http://localhost/axu/Public/img/riji.jpg",
-				"secretTitle"=>"我的日记，你想看吗？",
+				"secretTitle"=>"qqq我的日记，你想看吗？",
 				"secretValue"=>6.6,
 				"visitTime"=>"2016-07-05 22:10:56"	
 			), 
