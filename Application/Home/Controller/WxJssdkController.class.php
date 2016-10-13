@@ -5,17 +5,22 @@ class WxJssdkController extends FatherController{
 
 	private static $sesSuffixJs;
 	private $wxCallbackApi;
+    private $appId;
+    private $appSecret;
 
 	public function __construct(){
 		parent::__construct();
+        $this->appId = C("APP_ID");
+        $this->appSecret = C("APP_SECRET");
+        $this->wxCallbackApi = new WxCallbackController();
 		$this->generateTick();
 	}
 
 
-	public function generateTick($flush = false)
+	/*public function generateTick($flush = false)
 	{
 		$wxAccessToken = $this->wxCallbackApi->generateToken($flush);
-		self::$sesSuffixJs = config('common.appId') . WeixinConst::PRE_WX_ACCESS_TOKEN_JSAPI;
+		self::$sesSuffixJs =$this->appId . WeixinConst::PRE_WX_ACCESS_TOKEN_JSAPI;
 		$jsApiTick = $this->redis->get(self::$sesSuffixJs);
 		if ($flush || empty($jsApiTick)){
 			$urlJsAccessToken = config('common.weiXinBaseUrl') . "/cgi-bin/ticket/getticket?access_token={$wxAccessToken}&type=jsapi";
@@ -42,20 +47,52 @@ class WxJssdkController extends FatherController{
 			}
 		}
 		return $jsApiTick;
-	}
+	}*/
+
+    public function generateTick($flush = false) {
+        // jsapi_ticket 应该全局存储与更新，以下代码以写入到文件中做示例
+        $data = json_decode(file_get_contents("jsapi_ticket.json"));
+        if ($data->expire_time < time()) {
+            $accessToken = $this->wxCallbackApi->generateToken($flush);
+            // 如果是企业号用以下 URL 获取 ticket
+            $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=$accessToken";
+            $res = json_decode($this->httpGet($url));
+            $ticket = $res->ticket;
+            if ($ticket) {
+                $data->expire_time = time() + 7000;
+                $data->jsapi_ticket = $ticket;
+                $fp = fopen("jsapi_ticket.json", "w");
+                fwrite($fp, json_encode($data));
+                fclose($fp);
+            }
+        } else {
+            $ticket = $data->jsapi_ticket;
+        }
+        return $ticket;
+    }
+
+    private function httpGet($url) {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 500);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        $res = curl_exec($curl);
+        curl_close($curl);
+        return $res;
+    }
 
 	public function getSignPackage($url, $flush = false)
 	{
-
 		$jsApiTicket = self::generateTick($flush);
 		$timestamp = time();
 		$nonceStr = self::createNonceStr();
 		// 这里参数的顺序要按照 key 值 ASCII 码升序排序
 		$string = "jsapi_ticket={$jsApiTicket}&noncestr={$nonceStr}&timestamp={$timestamp}&url=" . $url;
-		$this->logger->debug("getSignPackage-String:".$string);
 		$signature = sha1($string);
 		$signPackage = array(
-			"appId" => config('common.appId'),
+			"appId" =>$this->appId,
 			"nonceStr" => $nonceStr,
 			"timestamp" => $timestamp,
 			"url" => $url,
@@ -63,9 +100,9 @@ class WxJssdkController extends FatherController{
 			"rawString" => $string
 		);
 
-		$this->logger->debug('WXJSSDK==>JS_SIGN_PACKAGE:' . var_export($signPackage, true));
 		return $signPackage;
 	}
+
 
 	private static function createNonceStr($length = 16)
 	{
