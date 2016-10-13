@@ -19,11 +19,5 @@ class PublishSImgController extends Controller{
 			$this->display();
 		}	
 	}
-	
-	
-	
-	
-	
 
-		
 }

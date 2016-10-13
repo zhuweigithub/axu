@@ -31,9 +31,9 @@ class WxCallbackApi extends BaseLibrary {
      * @return string token
      */
     public function generateToken($flush = false) {
-        $appId = config('common.appId');
-        $appSecret = config('common.appSecret');
-        $urlAccessToken = config('common.weiXinBaseUrl') . "/cgi-bin/token?grant_type=client_credential&appid={$appId}&secret={$appSecret}";
+		$appId = C("APP_ID");
+		$appSecret = C("APP_SECRET");
+        $urlAccessToken = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={$appId}&secret={$appSecret}";
 
         //$keyToken = $appId . WeixinConst::PRE_WX_ACCESS_TOKEN;
         $keyToken = 'yib:site:token:' . SITE_ID;
@@ -97,7 +97,7 @@ class WxCallbackApi extends BaseLibrary {
         if (!$fresh) {
             return $userOpenId;
         }
-        $reflushUrl = config('common.weiXinBaseUrl') . self::WX_REFRESH_TOKEN . "?appid=" . config('common.appId') . "&grant_type=refresh_token&refresh_token=" . $rspUser['refresh_token'];
+        $reflushUrl = "https://api.weixin.qq.com" . self::WX_REFRESH_TOKEN . "?appid=" . config('common.appId') . "&grant_type=refresh_token&refresh_token=" . $rspUser['refresh_token'];
 //        $strReflesh = CurlClient::getInstance()->doGet($reflushUrl);
         $strReflesh = $this->api->get($reflushUrl);
         $rspUserRefresh = json_decode($strReflesh, true);

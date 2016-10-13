@@ -8,25 +8,26 @@ class WxJssdkApi extends BaseLibrary
 
     private static $sesSuffixJs;
     private $wxCallbackApi;
-
+    private $appId;
+    private $appSecret;
     public function __construct()
     {
         parent::__construct();
-        $this->wxCallbackApi = $this->di->get('wxCallbackApi');
-
+        $this->wxCallbackApi = new WxCallbackApi();
+		$this->appId = C("APP_ID");
+		$this->appSecret = C("APP_SECRET");
         $this->generateTick();
     }
 
     public function generateTick($flush = false)
     {
         $wxAccessToken = $this->wxCallbackApi->generateToken($flush);
-        self::$sesSuffixJs = config('common.appId') . WeixinConst::PRE_WX_ACCESS_TOKEN_JSAPI;
+        self::$sesSuffixJs = $this->appId . WeixinConst::PRE_WX_ACCESS_TOKEN_JSAPI;
         $jsApiTick = $this->redis->get(self::$sesSuffixJs);
         if ($flush || empty($jsApiTick)){
-            $urlJsAccessToken = config('common.weiXinBaseUrl') . "/cgi-bin/ticket/getticket?access_token={$wxAccessToken}&type=jsapi";
+            $urlJsAccessToken = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={$wxAccessToken}&type=jsapi";
             //$info = CurlClient::getInstance()->doGet($urlJsAccessToken);
-            $info = $this->api->get($urlJsAccessToken);
-            $arr = json_decode($info, true);
+            $arr = json_decode($urlJsAccessToken, true);
             if (!empty($arr) && is_array($arr)){
                 $jsApiTick = $arr['ticket'];
                 if (!empty($jsApiTick)){
@@ -67,7 +68,6 @@ class WxJssdkApi extends BaseLibrary
             "rawString" => $string
         );
 
-        $this->logger->debug('WXJSSDK==>JS_SIGN_PACKAGE:' . var_export($signPackage, true));
         return $signPackage;
     }
 

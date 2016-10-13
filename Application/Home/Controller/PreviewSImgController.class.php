@@ -29,7 +29,6 @@ class PreviewSImgController extends Controller{
 		 	if(!file_exists($dest_folder)){
 		        mkdir($dest_folder);
 		 	}
-					dump($_FILES);
 			foreach($_FILES["fileselect"]["name"] as $key=>$val){
 			    	$arr=explode(".",$_FILES["fileselect"]["name"][$key]);
 					$hz=$arr[count($arr)-1];
