@@ -99,7 +99,7 @@ class WxJssdkController extends FatherController{
 			"signature" => $signature,
 			"rawString" => $string
 		);
-
+       print_r($signPackage);
 		return $signPackage;
 	}
 

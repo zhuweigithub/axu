@@ -2,14 +2,15 @@
 getSignPackage();
 function getSignPackage(){
     alert(111);
-	var urlStr  = "/WxJssdk/getSignPackage";
+	var urlStr  = "/index.php/Home/WxJssdk/getSignPackage";
 	var params = {};
 	params.url = encodeURIComponent(location.href.split('#')[0]);
 	params.back_url = window.location.search.replace("?back=","");
-	dataObj.back_url = params.back_url;
+	//dataObj.back_url = params.back_url;
 
 	$.post(urlStr,params,function(data){
 		var signpack = JSON.parse(data);
+
 		signpack.jsApiList = [
             'checkJsApi',
             'onMenuShareTimeline',
