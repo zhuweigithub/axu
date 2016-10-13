@@ -1,6 +1,7 @@
 
 getSignPackage();
 function getSignPackage(){
+    alert(111);
 	var urlStr  = "/WxJssdk/getSignPackage";
 	var params = {};
 	params.url = encodeURIComponent(location.href.split('#')[0]);
