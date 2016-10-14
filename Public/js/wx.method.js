@@ -1,7 +1,7 @@
 
 getSignPackage();
 function getSignPackage(){
-    alert(111);
+    //alert(111);
 	var urlStr  = "/index.php/Home/WxJssdk/getSignPackage";
 	var params = {};
 	params.url = encodeURIComponent(location.href.split('#')[0]);
@@ -10,51 +10,8 @@ function getSignPackage(){
 	//dataObj.back_url = params.back_url;
 
 	$.post(urlStr,params,function(data){
-
-
-		var signpack = data;
-
-		signpack.jsApiList = [
-            'checkJsApi',
-            'onMenuShareTimeline',
-            'onMenuShareAppMessage',
-            'onMenuShareQQ',
-            'onMenuShareWeibo',
-            'onMenuShareQZone',
-            'hideMenuItems',
-            'showMenuItems',
-            'hideAllNonBaseMenuItem',
-            'showAllNonBaseMenuItem',
-            'translateVoice',
-            'startRecord',
-            'stopRecord',
-            'onVoiceRecordEnd',
-            'playVoice',
-            'onVoicePlayEnd',
-            'pauseVoice',
-            'stopVoice',
-            'uploadVoice',
-            'downloadVoice',
-            'chooseImage',
-            'previewImage',
-            'uploadImage',
-            'downloadImage',
-            'getNetworkType',
-            'openLocation',
-            'getLocation',
-            'hideOptionMenu',
-            'showOptionMenu',
-            'closeWindow',
-            'scanQRCode',
-            'chooseWXPay',
-            'openProductSpecificView',
-            'addCard',
-            'chooseCard',
-            'openCard'
-        ];
-		signpack.debug = true;
-		console.log(signpack);return;
-		wx.config(signpack);
+		console.log(data);return;
+		wx.config(data);
 	});
 }
 wx.ready(function() {
