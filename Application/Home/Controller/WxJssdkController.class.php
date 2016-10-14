@@ -21,7 +21,6 @@ class WxJssdkController extends FatherController{
         $data = json_decode(file_get_contents("jsapi_ticket.json"));
         if ($data->expire_time < time()) {
             $accessToken = $this->wxCallbackApi->generateToken($flush);
-			$accessToken = $accessToken['access_token'];
             $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=$accessToken";
 
             $res = json_decode($this->httpGet($url));
