@@ -15,40 +15,6 @@ class WxJssdkController extends FatherController{
         $this->wxCallbackApi = new WxCallbackController();
 		$this->generateTick();
 	}
-
-
-	/*public function generateTick($flush = false)
-	{
-		$wxAccessToken = $this->wxCallbackApi->generateToken($flush);
-		self::$sesSuffixJs =$this->appId . WeixinConst::PRE_WX_ACCESS_TOKEN_JSAPI;
-		$jsApiTick = $this->redis->get(self::$sesSuffixJs);
-		if ($flush || empty($jsApiTick)){
-			$urlJsAccessToken = config('common.weiXinBaseUrl') . "/cgi-bin/ticket/getticket?access_token={$wxAccessToken}&type=jsapi";
-			//$info = CurlClient::getInstance()->doGet($urlJsAccessToken);
-			$info = $this->api->get($urlJsAccessToken);
-			$arr = json_decode($info, true);
-			if (!empty($arr) && is_array($arr)){
-				$jsApiTick = $arr['ticket'];
-				if (!empty($jsApiTick)){
-					$accessExpires = 60 * 60 * 2 - 100;
-					if ($arr["expires_in"] > 0){
-						$accessExpires = $arr["expires_in"] - 100;
-					}
-					$rs = $this->redis->setex(self::$sesSuffixJs, $accessExpires, $jsApiTick);
-				}
-				else {
-					//LoggerFactory::getLogger(__CLASS__)->error("weixin get js tick error 1:", $arr);
-					return false;
-				}
-			}
-			else {
-				//LoggerFactory::getLogger(__CLASS__)->error("weixin get js tick error 2:" . $info);
-				return false;
-			}
-		}
-		return $jsApiTick;
-	}*/
-
     public function generateTick($flush = false) {
         // jsapi_ticket 应该全局存储与更新，以下代码以写入到文件中做示例
 

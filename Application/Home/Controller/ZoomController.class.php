@@ -1,6 +1,8 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
+use Think\Exception;
+
 import('Lib.CommonClass.lib_image_imagick');
 class ZoomController extends FatherController{
     public function __construct(){
@@ -283,6 +285,28 @@ class ZoomController extends FatherController{
 		
 		$this->ajaxReturn($data,'JSON');
 			
+	}
+
+	/**下载图片**/
+	public function downLoadPic($serverId = null){
+		if(!$serverId){
+			throw new Exception('serverID不能为空！');
+		}
+        $wxCallback = new WxCallbackController();
+		$accessToken = $wxCallback->generateToken();
+		$apiURL = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$accessToken."&media_id=".$serverId;
+		$fileData = file_get_contents($apiURL);
+		$fileData = json_decode($fileData);
+		if($fileData->errcode && $fileData->errcode == 42001){
+			$accessToken = $wxCallback->generateToken(true);
+			$apiURL = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$accessToken."&media_id=".$serverId;
+		}
+		$postData = [
+			'image_base' => base64_encode(trim(file_get_contents($apiURL))),
+			're_upload' => 1,
+		];
+		$postData = http_build_query($postData);
+		print_r($postData);exit;
 	}
 	
 		
