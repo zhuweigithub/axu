@@ -1,8 +1,5 @@
 sss();
 function sss(){
-	console.log(11111);
-	console.log(wx);
-
 	var urlStr  = "/index.php/Home/WxJssdk/getSignPackage";
 	var params = {};
 	params.url = encodeURIComponent(location.href.split('#')[0]);
@@ -12,8 +9,8 @@ function sss(){
 	});
 }
 $(".uploadImg").on("click",function(){
-	alert(111);
-	//	wxUploadImg();
+
+		wxUploadImg();
 });
 function wxUploadImg(){
 	alert(222);
