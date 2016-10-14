@@ -9,11 +9,7 @@ function sss(){
 	});
 }
 $(".uploadImg").on("click",function(){
-
-		wxUploadImg();
-});
-function wxUploadImg(){
-	alert(222);
+	alert(111);
 	wx.ready(function() {
 		alert(33);
 		wx.chooseImage({
@@ -34,16 +30,16 @@ function wxUploadImg(){
 						var serverId = res.serverId; // 返回图片的服务器端ID
 						alert(serverId);
 						/*$.get('/tool/downLoadPic/'+serverId,{} , function (data) {
-							var data = typeof(data) == 'object'?data:JSON.parse(data);
-							if (data.errorCode != 0) {
-								alert(data.errorMessage.msg);
-								return false;
-							}else{
-								 alert(data.errorMessage.image);
-								//$(imgObj).attr("src",data.errorMessage.image);
-							}
+						 var data = typeof(data) == 'object'?data:JSON.parse(data);
+						 if (data.errorCode != 0) {
+						 alert(data.errorMessage.msg);
+						 return false;
+						 }else{
+						 alert(data.errorMessage.image);
+						 //$(imgObj).attr("src",data.errorMessage.image);
+						 }
 
-						});*/
+						 });*/
 
 					}
 				});
@@ -51,4 +47,4 @@ function wxUploadImg(){
 		});
 
 	});
-}
+});
