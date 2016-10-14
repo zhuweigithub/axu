@@ -318,8 +318,9 @@ class ZoomController extends FatherController{
 		$teamPic = \WxViewApi::imguri($imageInfo['md5Key'], 0, 150, 150);
 		echo $postData;
 	}*/
-	public function downLoadPic($serverId = null)
+	public function downLoadPic()
 	{
+		$serverId = $_POST['serverId'];
 		if(!$serverId){
 			throw new Exception('serverID不能为空！');
 		}
