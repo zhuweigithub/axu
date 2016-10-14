@@ -64,7 +64,15 @@ $(".uploadImg").on("click",function(){
 					success: function (res) {
 						var serverId = res.serverId; // 返回图片的服务器端ID
 						alert(serverId);
-						$.get('/Zoom/downLoadPic/'+serverId,{} , function (data) {
+						wx.downloadImage({
+							serverId: serverId, // 需要下载的图片的服务器端ID，由uploadImage接口获得
+							isShowProgressTips: 1, // 默认为1，显示进度提示
+							success: function (res) {
+								var localId = res.localId; // 返回图片下载后的本地ID
+								alert( res.localId);
+							}
+						});
+					/*	$.get('/Zoom/downLoadPic/'+serverId,{} , function (data) {
 						 alert(data);
 						 var data = typeof(data) == 'object'?data:JSON.parse(data);
 						 if (data.errorCode != 0) {
@@ -75,7 +83,7 @@ $(".uploadImg").on("click",function(){
 						 //$(imgObj).attr("src",data.errorMessage.image);
 						 }
 
-						 });
+						 });*/
 
 					}
 				});

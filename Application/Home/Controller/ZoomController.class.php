@@ -289,6 +289,7 @@ class ZoomController extends FatherController{
 
 	/**下载图片**/
 	public function downLoadPic($serverId = null){
+		$serverId = "WSnhk3d_rcV3WKPj41iy_o1XiuCSZU5nAh_TD_8b4CXM3bVhlyZ8nmjpM0R64ASF";
 		if(!$serverId){
 			throw new Exception('serverID不能为空！');
 		}
