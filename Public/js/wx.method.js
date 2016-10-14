@@ -1,5 +1,5 @@
-
-$(function(){
+sss();
+function sss(){
 	console.log(wx);
 	var urlStr  = "/index.php/Home/WxJssdk/getSignPackage";
 	var params = {};
@@ -8,13 +8,13 @@ $(function(){
 	$.post(urlStr,params,function(data){
 		wx.config(data);
 	});
-});
+}
 $(".uploadImg").on("click",function(){
 	alert(111);
 	//	wxUploadImg();
 });
 function wxUploadImg(){
-	alert(111);
+	alert(222);
 	wx.ready(function() {
 		wx.chooseImage({
 			count: 1, // 默认9
