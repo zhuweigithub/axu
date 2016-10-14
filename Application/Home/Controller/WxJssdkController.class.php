@@ -51,13 +51,15 @@ class WxJssdkController extends FatherController{
 
     public function generateTick($flush = false) {
         // jsapi_ticket 应该全局存储与更新，以下代码以写入到文件中做示例
+
         $data = json_decode(file_get_contents("jsapi_ticket.json"));
-		print_r($data);exit;
         if ($data->expire_time < time()) {
             $accessToken = $this->wxCallbackApi->generateToken($flush);
-            // 如果是企业号用以下 URL 获取 ticket
+
             $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=$accessToken";
+
             $res = json_decode($this->httpGet($url));
+			print_r($res);
             $ticket = $res->ticket;
             if ($ticket) {
                 $data->expire_time = time() + 7000;
@@ -67,6 +69,7 @@ class WxJssdkController extends FatherController{
                 fclose($fp);
             }
         } else {
+
             $ticket = $data->jsapi_ticket;
         }
         return $ticket;
