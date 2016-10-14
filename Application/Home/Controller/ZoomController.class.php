@@ -320,8 +320,10 @@ class ZoomController extends FatherController{
 	}*/
 	public function downLoadPic($serverId = null)
 	{
+		if(!$serverId){
+			throw new Exception('serverID不能为空！');
+		}
 		//$MEDIA_ID = "WSnhk3d_rcV3WKPj41iy_o1XiuCSZU5nAh_TD_8b4CXM3bVhlyZ8nmjpM0R64ASF";
-		$MEDIA_ID = $serverId;
 		$return   = array();
 		$path     = 'Public/img/upload'; //定义保存路径
 		$dir      = realpath($path); //为方便管理图片 保存图片时 已时间作一层目录作区分
@@ -329,9 +331,21 @@ class ZoomController extends FatherController{
 		if (!file_exists($tardir)) {
 			mkdir($dir . '/' . date('Y_m_d'));
 		}
-		$wxCallback = new WxCallbackController();
+	/*	$wxCallback = new WxCallbackController();
 		$ACCESS_TOKEN = $wxCallback->generateToken();
-		$url          = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=$ACCESS_TOKEN&media_id=$MEDIA_ID";
+		$url          = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=$ACCESS_TOKEN&media_id=$serverId";*/
+
+		$wxCallback = new WxCallbackController();
+		$accessToken = $wxCallback->generateToken();
+		$url = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$accessToken."&media_id=".$serverId;
+	/*	$fileData = file_get_contents($url);
+		$fileData = json_decode($fileData);
+		if($fileData->errcode && $fileData->errcode == 42001){
+			$accessToken = $wxCallback->generateToken(true);
+			$url = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$accessToken."&media_id=".$serverId;
+		}*/
+
+
 		$ch          = curl_init($url);
 		$ranfilename = time() . rand() . ".jpg";
 		$filename    = $path . '/' . date('Y_m_d') . '/' . $ranfilename; //存数据库用
