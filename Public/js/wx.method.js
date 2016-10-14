@@ -5,7 +5,18 @@ function sss(){
 	params.url = encodeURIComponent(location.href.split('#')[0]);
 	params.back_url = window.location.search.replace("?back=","");
 	$.post(urlStr,params,function(data){
-		wx.config(data);
+		console.log(data);
+		data = eval('('+ data +')');
+		//console.log(data);return;
+		//wx.config(data);
+		wx.config({
+			appId: data.appId,
+			timestamp: data.timestamp,
+    		nonceStr: data.nonceStr,
+    		signature: data.signature,
+			debug: true,
+    		jsApiList:  data.jsApiList
+  			});
 	});
 }
 $(".uploadImg").on("click",function(){
