@@ -8,13 +8,13 @@ class FatherController extends Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->userInfo = session("userInfo");
     }
 
     /** 检查是否有授权过
      * @return bool
      */
     public function getUserInfo(){
+		$this->userInfo = session("userInfo");
         if(empty($this->userInfo)){
             return false;
         }else{
