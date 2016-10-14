@@ -306,7 +306,7 @@ class ZoomController extends FatherController{
 			're_upload' => 1,
 		];
 		$postData = http_build_query($postData);
-		print_r($postData);exit;
+		echo $postData;
 	}
 	
 		

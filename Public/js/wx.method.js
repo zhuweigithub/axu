@@ -65,7 +65,7 @@ $(".uploadImg").on("click",function(){
 						var serverId = res.serverId; // 返回图片的服务器端ID
 						//alert(serverId);
 						$.get('/Zoom/downLoadPic/'+serverId,{} , function (data) {
-						 //console.log(data);
+						 alert(data);
 						 var data = typeof(data) == 'object'?data:JSON.parse(data);
 						 if (data.errorCode != 0) {
 						 alert(data.errorMessage.msg);
