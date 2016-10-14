@@ -1,22 +1,50 @@
 sss();
 function sss(){
 	var urlStr  = "/index.php/Home/WxJssdk/getSignPackage";
-	var params = {};
-	params.url = encodeURIComponent(location.href.split('#')[0]);
-	params.back_url = window.location.search.replace("?back=","");
-	$.post(urlStr,params,function(data){
-		console.log(data);
+	var url = encodeURIComponent(location.href.split('#')[0]);
+	var back_url = window.location.search.replace("?back=","");
+	$.post(urlStr,{url : url,back_url:back_url},function(data){
 		data = eval('('+ data +')');
-		//console.log(data);return;
-		//wx.config(data);
-		wx.config({
-			appId: data.appId,
-			timestamp: data.timestamp,
-    		nonceStr: data.nonceStr,
-    		signature: data.signature,
-			debug: true,
-    		jsApiList:  data.jsApiList
-  			});
+		data.jsApiList = [
+			'checkJsApi',
+			'onMenuShareTimeline',
+			'onMenuShareAppMessage',
+			'onMenuShareQQ',
+			'onMenuShareWeibo',
+			'onMenuShareQZone',
+			'hideMenuItems',
+			'showMenuItems',
+			'hideAllNonBaseMenuItem',
+			'showAllNonBaseMenuItem',
+			'translateVoice',
+			'startRecord',
+			'stopRecord',
+			'onVoiceRecordEnd',
+			'playVoice',
+			'onVoicePlayEnd',
+			'pauseVoice',
+			'stopVoice',
+			'uploadVoice',
+			'downloadVoice',
+			'chooseImage',
+			'previewImage',
+			'uploadImage',
+			'downloadImage',
+			'getNetworkType',
+			'openLocation',
+			'getLocation',
+			'hideOptionMenu',
+			'showOptionMenu',
+			'closeWindow',
+			'scanQRCode',
+			'chooseWXPay',
+			'openProductSpecificView',
+			'addCard',
+			'chooseCard',
+			'openCard'
+		];
+		data.debug = true;
+		wx.config(data);
 	});
 }
 $(".uploadImg").on("click",function(){

@@ -88,8 +88,9 @@ class WxJssdkController extends FatherController{
 
 	public function getSignPackage($url, $flush = false)
 	{
-		$url = "http://admin.axu.com/index.php/Home/WxUploadImg/imgUpload";
-
+		//$url = "http://admin.axu.com/index.php/Home/WxUploadImg/imgUpload";
+		$url = $_POST['url'];
+		$url = urldecode($url);
 		$jsApiTicket = $this->generateTick($flush);
 		$timestamp = time();
 		$nonceStr = $this->createNonceStr();
@@ -103,46 +104,7 @@ class WxJssdkController extends FatherController{
 			"url" => $url,
 			"signature" => $signature,
 			"rawString" => $string,
-			"debug" => true,
-			"jsApiList" =>[
-				'checkJsApi',
-				'onMenuShareTimeline',
-				'onMenuShareAppMessage',
-				'onMenuShareQQ',
-				'onMenuShareWeibo',
-				'onMenuShareQZone',
-				'hideMenuItems',
-				'showMenuItems',
-				'hideAllNonBaseMenuItem',
-				'showAllNonBaseMenuItem',
-				'translateVoice',
-				'startRecord',
-				'stopRecord',
-				'onVoiceRecordEnd',
-				'playVoice',
-				'onVoicePlayEnd',
-				'pauseVoice',
-				'stopVoice',
-				'uploadVoice',
-				'downloadVoice',
-				'chooseImage',
-				'previewImage',
-				'uploadImage',
-				'downloadImage',
-				'getNetworkType',
-				'openLocation',
-				'getLocation',
-				'hideOptionMenu',
-				'showOptionMenu',
-				'closeWindow',
-				'scanQRCode',
-				'chooseWXPay',
-				'openProductSpecificView',
-				'addCard',
-				'chooseCard',
-				'openCard'
-			],
-
+			"back_url" => $_POST['back_url']
 		);
 		echo json_encode($signPackage);
 	}
