@@ -15,6 +15,7 @@ class FatherController extends Controller {
      */
     public function getUserInfo(){
 		$this->userInfo = session("userInfo");
+		print_r($this->userInfo);
         if(empty($this->userInfo)){
             return false;
         }else{
