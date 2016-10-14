@@ -5,6 +5,7 @@ function getSignPackage(){
 	var urlStr  = "/index.php/Home/WxJssdk/getSignPackage";
 	var params = {};
 	params.url = encodeURIComponent(location.href.split('#')[0]);
+	//alert(params.url);return;
 	params.back_url = window.location.search.replace("?back=","");
 	//dataObj.back_url = params.back_url;
 

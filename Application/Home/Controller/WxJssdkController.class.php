@@ -52,6 +52,7 @@ class WxJssdkController extends FatherController{
     public function generateTick($flush = false) {
         // jsapi_ticket 应该全局存储与更新，以下代码以写入到文件中做示例
         $data = json_decode(file_get_contents("jsapi_ticket.json"));
+		print_r($data);exit;
         if ($data->expire_time < time()) {
             $accessToken = $this->wxCallbackApi->generateToken($flush);
             // 如果是企业号用以下 URL 获取 ticket
@@ -83,9 +84,13 @@ class WxJssdkController extends FatherController{
         return $res;
     }
 
-	public function getSignPackage($url, $flush = false)
+	//public function getSignPackage($url, $flush = false)
+	public function getSignPackage( $flush = false)
 	{
-		$jsApiTicket = self::generateTick($flush);
+		$url = "http://admin.axu.com/index.php/Home/WxUploadImg/imgUpload";
+
+		$jsApiTicket = $this->generateTick($flush);
+		print_r($jsApiTicket);exit;
 		$timestamp = time();
 		$nonceStr = self::createNonceStr();
 		// 这里参数的顺序要按照 key 值 ASCII 码升序排序
