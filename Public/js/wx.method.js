@@ -10,7 +10,6 @@ function getSignPackage(){
 	//dataObj.back_url = params.back_url;
 
 	$.post(urlStr,params,function(data){
-		console.log(data);return;
 		wx.config(data);
 	});
 }
