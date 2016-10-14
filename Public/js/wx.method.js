@@ -63,7 +63,7 @@ $(".uploadImg").on("click",function(){
 					isShowProgressTips: 1, // 默认为1，显示进度提示
 					success: function (res) {
 						var serverId = res.serverId; // 返回图片的服务器端ID
-						//alert(serverId);
+						alert(serverId);
 						$.get('/Zoom/downLoadPic/'+serverId,{} , function (data) {
 						 alert(data);
 						 var data = typeof(data) == 'object'?data:JSON.parse(data);
