@@ -10,6 +10,7 @@ function getSignPackage(){
 	//dataObj.back_url = params.back_url;
 
 	$.post(urlStr,params,function(data){
+		console.log(data);return;
 		var signpack = JSON.parse(data);
 
 		signpack.jsApiList = [
