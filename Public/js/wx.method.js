@@ -11,9 +11,9 @@ function getSignPackage(){
 
 	$.post(urlStr,params,function(data){
 
-		data = eval('('+ data +')');
-		var signpack = JSON.parse(data);
-		console.log(signpack);return;
+
+		var signpack = data;
+
 		signpack.jsApiList = [
             'checkJsApi',
             'onMenuShareTimeline',
@@ -53,6 +53,7 @@ function getSignPackage(){
             'openCard'
         ];
 		signpack.debug = true;
+		console.log(signpack);return;
 		wx.config(signpack);
 	});
 }
