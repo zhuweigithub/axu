@@ -1,5 +1,5 @@
-sss();
-function sss(){
+wxConfigFirst();
+function wxConfigFirst(){
 	var urlStr  = "/index.php/Home/WxJssdk/getSignPackage";
 	var url = encodeURIComponent(location.href.split('#')[0]);
 	var back_url = window.location.search.replace("?back=","");
@@ -63,18 +63,8 @@ $(".uploadImg").on("click",function(){
 					isShowProgressTips: 1, // 默认为1，显示进度提示
 					success: function (res) {
 						var serverId = res.serverId; // 返回图片的服务器端ID
-						$.post('/index.php/Home/Zoom/downLoadPic',{serverId : serverId},function(data){
-								alert(111);
+						$.post('/index.php/Home/WxJssdk/downLoadPic',{serverId : serverId},function(data){ //下载图片到自己服务器,返回本地服务器图片地址
 						 		alert(data);return;
-						 var data = typeof(data) == 'object'?data:JSON.parse(data);
-						 if (data.errorCode != 0) {
-						 alert(data.errorMessage.msg);
-						 return false;
-						 }else{
-						 alert(data.errorMessage.image);
-						 //$(imgObj).attr("src",data.errorMessage.image);
-						 }
-
 						 });
 
 					}

@@ -86,4 +86,38 @@ class WxJssdkController extends FatherController{
 		return $str;
 	}
 
+	public function downLoadPic()
+	{
+		$serverId = $_POST['serverId'];
+		if(!$serverId){
+			throw new Exception('serverID不能为空！');
+		}
+		$return   = array();
+		$path     = 'Public/img/upload'; //定义保存路径
+		$dir      = realpath($path); //为方便管理图片 保存图片时 已时间作一层目录作区分
+		$tardir   = $dir . '/' . date('Y_m_d');
+		if (!file_exists($tardir)) {
+			mkdir($dir . '/' . date('Y_m_d'));
+		}
+		$wxCallback = new WxCallbackController();
+		$accessToken = $wxCallback->generateToken();
+		$url = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$accessToken."&media_id=".$serverId;
+		try{
+			$ch          = curl_init($url);
+			$ranfilename = time() . rand() . ".jpg";
+			$filename    = $path . '/' . date('Y_m_d') . '/' . $ranfilename; //存数据库用
+			$tarfilename = $tardir . "/" . $ranfilename;
+			$fp = fopen($tarfilename, "w");
+			curl_setopt($ch, CURLOPT_FILE, $fp);
+			curl_setopt($ch, CURLOPT_HEADER, 0);
+			curl_exec($ch);
+			curl_close($ch);
+			fclose($fp);
+			echo $filename;
+		}catch (Exception $e){
+			throw new Exception($e);
+		}
+
+	}
+
 }

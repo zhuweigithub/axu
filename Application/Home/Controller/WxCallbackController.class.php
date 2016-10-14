@@ -1,6 +1,8 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
+use Think\Exception;
+
 class WxCallbackController extends FatherController{
 
     private $appId;
@@ -12,7 +14,45 @@ class WxCallbackController extends FatherController{
         $this->appSecret = C("APP_SECRET");
     }
 
+    public function getWxCode($redirect_url){
+		$redirect_url = urlencode($redirect_url);
+		$url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=". $this->appId ."&redirect_uri=". $redirect_url ."&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+		header("Location:". $url);
+	}
 
+	public function getUserInfoByAccessToken($result){
+
+		$result = json_decode($result);
+		session("access_token",$result->access_token);
+		session("openid",$result->openid);
+		$userinfo_url = 'https://api.weixin.qq.com/sns/userinfo';
+		unset($params);
+		$params['access_token'] = $result->access_token;
+		$params['openid'] = $result->openid;
+		$params['lang'] = 'zh_CN';
+		$userinfo = $this->curl( $userinfo_url , $params );
+		$userinfo = json_decode($userinfo);
+		$unionid = empty($userinfo->unionid) ? $userinfo->unionid : '';
+		$data = array(
+			'wx_open_id' => $result->openid
+			,'wx_union_id' => $userinfo->unionid
+			,'buyer_nick' => $userinfo->nickname
+			,'sex' => $userinfo->sex
+			,'province' => $userinfo->province
+			,'city' => $userinfo->city
+			,'buyer_img' => $userinfo->headimgurl
+		);
+		return $data;
+	}
+	public function getAccessTokenByCode($code){
+		$oauth = 'https://api.weixin.qq.com/sns/oauth2/access_token';
+		$params['appid'] = $this->appId;
+		$params['secret'] = $this->appSecret;
+		$params['code'] = $code;
+		$params['grant_type'] = 'authorization_code';
+		$result = $this->curl( $oauth , $params );
+		return $result;
+	}
     public function generateToken($flush = false) {
         $urlAccessToken = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={$this->appId}&secret={$this->appSecret}";
         $token = session('token');

@@ -281,87 +281,9 @@ class ZoomController extends FatherController{
 			$data['retn'] = 1;
 			$data['desc'] = '签到成功';
 		}
-		
 		$this->ajaxReturn($data,'JSON');
 			
 	}
 
-	/*下载图片
-	public function downLoadPic($serverId = null){
-		$serverId = "WSnhk3d_rcV3WKPj41iy_o1XiuCSZU5nAh_TD_8b4CXM3bVhlyZ8nmjpM0R64ASF";
-		if(!$serverId){
-			throw new Exception('serverID不能为空！');
-		}
-        $wxCallback = new WxCallbackController();
-		$accessToken = $wxCallback->generateToken();
-		print_r($accessToken);exit;
-		$apiURL = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$accessToken."&media_id=".$serverId;
-		$fileData = file_get_contents($apiURL);
-		$fileData = json_decode($fileData);
-		if($fileData->errcode && $fileData->errcode == 42001){
-			$accessToken = $wxCallback->generateToken(true);
-			$apiURL = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$accessToken."&media_id=".$serverId;
-		}
-		$postData = [
-			'image_base' => base64_encode(trim(file_get_contents($apiURL))),
-			're_upload' => 1,
-		];
-		$postData = http_build_query($postData);
-		$http = new \HTTPRequest();
-		$respData = $http::curl(IMG_SERVER . 'api/upload', $postData, HTTPRequest::_setHeader());
-		$this->logger->debug("upload response:" . $respData);
-		$respData = json_decode($respData, 1);
-		if (intval($respData['status']) != 0) {
-			return $this->jsonOut(-1120, ['msg' => '图片上传失败']);
-		}
-		$imageInfo = $respData['image'];
-		$teamPic = \WxViewApi::imguri($imageInfo['md5Key'], 0, 150, 150);
-		echo $postData;
-	}*/
-	public function downLoadPic()
-	{
-		
-		$serverId = $_POST['serverId'];
-		if(!$serverId){
-			throw new Exception('serverID不能为空！');
-		}
-		//$MEDIA_ID = "WSnhk3d_rcV3WKPj41iy_o1XiuCSZU5nAh_TD_8b4CXM3bVhlyZ8nmjpM0R64ASF";
-		$return   = array();
-		$path     = 'Public/img/upload'; //定义保存路径
-		$dir      = realpath($path); //为方便管理图片 保存图片时 已时间作一层目录作区分
-		$tardir   = $dir . '/' . date('Y_m_d');
-		if (!file_exists($tardir)) {
-			mkdir($dir . '/' . date('Y_m_d'));
-		}
-	/*	$wxCallback = new WxCallbackController();
-		$ACCESS_TOKEN = $wxCallback->generateToken();
-		$url          = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=$ACCESS_TOKEN&media_id=$serverId";*/
-
-		$wxCallback = new WxCallbackController();
-		$accessToken = $wxCallback->generateToken();
-		$url = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$accessToken."&media_id=".$serverId;
-	/*	$fileData = file_get_contents($url);
-		$fileData = json_decode($fileData);
-		if($fileData->errcode && $fileData->errcode == 42001){
-			$accessToken = $wxCallback->generateToken(true);
-			$url = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$accessToken."&media_id=".$serverId;
-		}*/
-
-
-		$ch          = curl_init($url);
-		$ranfilename = time() . rand() . ".jpg";
-		$filename    = $path . '/' . date('Y_m_d') . '/' . $ranfilename; //存数据库用
-		$tarfilename = $tardir . "/" . $ranfilename;
-		//echo $tarfilename;
-		$fp = fopen($tarfilename, "w");
-
-		curl_setopt($ch, CURLOPT_FILE, $fp);
-		curl_setopt($ch, CURLOPT_HEADER, 0);
-
-		curl_exec($ch);
-		curl_close($ch);
-		fclose($fp);
-		echo '987654321';
-	}
 		
 }
