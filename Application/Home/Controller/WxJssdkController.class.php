@@ -86,8 +86,7 @@ class WxJssdkController extends FatherController{
         return $res;
     }
 
-	//public function getSignPackage($url, $flush = false)
-	public function getSignPackage( $flush = false)
+	public function getSignPackage($url, $flush = false)
 	{
 		$url = "http://admin.axu.com/index.php/Home/WxUploadImg/imgUpload";
 
@@ -105,7 +104,6 @@ class WxJssdkController extends FatherController{
 			"signature" => $signature,
 			"rawString" => $string
 		);
-       print_r($signPackage);exit;
 		return $signPackage;
 	}
 
