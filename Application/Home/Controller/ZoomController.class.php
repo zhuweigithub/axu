@@ -334,9 +334,9 @@ class ZoomController extends FatherController{
 		$url          = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=$ACCESS_TOKEN&media_id=$MEDIA_ID";
 		$ch          = curl_init($url);
 		$ranfilename = time() . rand() . ".jpg";
-		$filename    = $path . '/' . date('Y_m_d') . '/' . $ranfilename; //村数据库用
+		$filename    = $path . '/' . date('Y_m_d') . '/' . $ranfilename; //存数据库用
 		$tarfilename = $tardir . "/" . $ranfilename;
-		echo $tarfilename;
+		//echo $tarfilename;
 		$fp = fopen($tarfilename, "w");
 
 		curl_setopt($ch, CURLOPT_FILE, $fp);
