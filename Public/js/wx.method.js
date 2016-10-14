@@ -1,17 +1,20 @@
 
 $(function(){
+	console.log(wx);
 	var urlStr  = "/index.php/Home/WxJssdk/getSignPackage";
 	var params = {};
 	params.url = encodeURIComponent(location.href.split('#')[0]);
-	//alert(params.url);return;
 	params.back_url = window.location.search.replace("?back=","");
-	//dataObj.back_url = params.back_url;
-
 	$.post(urlStr,params,function(data){
 		wx.config(data);
 	});
 });
+$(".uploadImg").on("click",function(){
+	alert(111);
+	//	wxUploadImg();
+});
 function wxUploadImg(){
+	alert(111);
 	wx.ready(function() {
 		wx.chooseImage({
 			count: 1, // 默认9
