@@ -63,19 +63,7 @@ $(".uploadImg").on("click",function(){
 					isShowProgressTips: 1, // 默认为1，显示进度提示
 					success: function (res) {
 						var serverId = res.serverId; // 返回图片的服务器端ID
-						alert(serverId);
-					/*	wx.downloadImage({
-							serverId: serverId, // 需要下载的图片的服务器端ID，由uploadImage接口获得
-							isShowProgressTips: 1, // 默认为1，显示进度提示
-							success: function (res) {
-								var localId = res.localId; // 返回图片下载后的本地ID
-								alert( res.localId);
-							}
-						});*/
-						//$.get('/index.php/Home/Zoom/downLoadPic/'+serverId , function (data) {
-						alert(111);
-
-							$.post('/index.php/Home/Zoom/downLoadPic',{serverId : serverId},function(data){
+						$.post('/index.php/Home/Zoom/downLoadPic',{serverId : serverId},function(data){
 								alert(111);
 						 		alert(data);return;
 						 var data = typeof(data) == 'object'?data:JSON.parse(data);
