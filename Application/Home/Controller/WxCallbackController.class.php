@@ -15,7 +15,6 @@ class WxCallbackController extends FatherController{
 
     public function generateToken($flush = false) {
         $urlAccessToken = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={$this->appId}&secret={$this->appSecret}";
-		echo $urlAccessToken;
         $token = session('token');
         if ($token && !$flush) {
             return $token;
@@ -23,8 +22,6 @@ class WxCallbackController extends FatherController{
 
         //没有获取到,或者要求强制刷新
         $token = $this->curl($urlAccessToken);
-     print_r($token);exit;
-
         if (!$token) {
             throw new Exception("获取token失败");
         }

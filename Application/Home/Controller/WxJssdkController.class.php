@@ -59,7 +59,6 @@ class WxJssdkController extends FatherController{
             $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=$accessToken";
 
             $res = json_decode($this->httpGet($url));
-			print_r($res);
             $ticket = $res->ticket;
             if ($ticket) {
                 $data->expire_time = time() + 7000;
@@ -93,7 +92,6 @@ class WxJssdkController extends FatherController{
 		$url = "http://admin.axu.com/index.php/Home/WxUploadImg/imgUpload";
 
 		$jsApiTicket = $this->generateTick($flush);
-		print_r($jsApiTicket);exit;
 		$timestamp = time();
 		$nonceStr = self::createNonceStr();
 		// 这里参数的顺序要按照 key 值 ASCII 码升序排序
@@ -107,7 +105,7 @@ class WxJssdkController extends FatherController{
 			"signature" => $signature,
 			"rawString" => $string
 		);
-       print_r($signPackage);
+       print_r($signPackage);exit;
 		return $signPackage;
 	}
 
