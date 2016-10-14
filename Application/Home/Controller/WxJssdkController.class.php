@@ -71,6 +71,7 @@ class WxJssdkController extends FatherController{
 
             $ticket = $data->jsapi_ticket;
         }
+		print_r($ticket);exit;
         return $ticket;
     }
 
