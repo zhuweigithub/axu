@@ -320,6 +320,7 @@ class ZoomController extends FatherController{
 	}*/
 	public function downLoadPic()
 	{
+		echo 123455;
 		$serverId = $_POST['serverId'];
 		if(!$serverId){
 			throw new Exception('serverID不能为空！');

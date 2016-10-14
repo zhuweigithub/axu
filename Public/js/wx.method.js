@@ -74,7 +74,8 @@ $(".uploadImg").on("click",function(){
 						});*/
 						//$.get('/index.php/Home/Zoom/downLoadPic/'+serverId , function (data) {
 							$.post('/index.php/Home/Zoom/downLoadPic',{serverId : serverId},function(data){
-						 alert(data);
+								alert(111);
+						 		alert(data);return;
 						 var data = typeof(data) == 'object'?data:JSON.parse(data);
 						 if (data.errorCode != 0) {
 						 alert(data.errorMessage.msg);
