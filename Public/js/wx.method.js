@@ -1,6 +1,8 @@
 sss();
 function sss(){
+	console.log(11111);
 	console.log(wx);
+
 	var urlStr  = "/index.php/Home/WxJssdk/getSignPackage";
 	var params = {};
 	params.url = encodeURIComponent(location.href.split('#')[0]);
