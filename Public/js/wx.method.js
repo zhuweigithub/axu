@@ -73,6 +73,8 @@ $(".uploadImg").on("click",function(){
 							}
 						});*/
 						//$.get('/index.php/Home/Zoom/downLoadPic/'+serverId , function (data) {
+						alert(111);
+
 							$.post('/index.php/Home/Zoom/downLoadPic',{serverId : serverId},function(data){
 								alert(111);
 						 		alert(data);return;

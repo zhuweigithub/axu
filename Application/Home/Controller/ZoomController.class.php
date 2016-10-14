@@ -320,7 +320,7 @@ class ZoomController extends FatherController{
 	}*/
 	public function downLoadPic()
 	{
-		echo 123455;
+		
 		$serverId = $_POST['serverId'];
 		if(!$serverId){
 			throw new Exception('serverID不能为空！');
@@ -340,8 +340,6 @@ class ZoomController extends FatherController{
 		$wxCallback = new WxCallbackController();
 		$accessToken = $wxCallback->generateToken();
 		$url = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=".$accessToken."&media_id=".$serverId;
-		echo $url;
-		print_r($url);exit;
 	/*	$fileData = file_get_contents($url);
 		$fileData = json_decode($fileData);
 		if($fileData->errcode && $fileData->errcode == 42001){
@@ -363,6 +361,7 @@ class ZoomController extends FatherController{
 		curl_exec($ch);
 		curl_close($ch);
 		fclose($fp);
+		echo '987654321';
 	}
 		
 }
