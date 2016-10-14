@@ -10,9 +10,10 @@ function getSignPackage(){
 	//dataObj.back_url = params.back_url;
 
 	$.post(urlStr,params,function(data){
-		console.log(data);return;
-		var signpack = JSON.parse(data);
 
+		data = eval('('+ data +')');
+		var signpack = JSON.parse(data);
+		console.log(signpack);return;
 		signpack.jsApiList = [
             'checkJsApi',
             'onMenuShareTimeline',
