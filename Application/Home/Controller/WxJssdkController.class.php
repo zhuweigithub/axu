@@ -92,7 +92,7 @@ class WxJssdkController extends FatherController{
 
 		$jsApiTicket = $this->generateTick($flush);
 		$timestamp = time();
-		$nonceStr = self::createNonceStr();
+		$nonceStr = $this->createNonceStr();
 		// 这里参数的顺序要按照 key 值 ASCII 码升序排序
 		$string = "jsapi_ticket={$jsApiTicket}&noncestr={$nonceStr}&timestamp={$timestamp}&url=" . $url;
 		$signature = sha1($string);
@@ -104,7 +104,7 @@ class WxJssdkController extends FatherController{
 			"signature" => $signature,
 			"rawString" => $string
 		);
-		echo $signPackage;
+		echo json_encode($signPackage);
 	}
 
 
