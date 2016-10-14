@@ -72,7 +72,7 @@ $(".uploadImg").on("click",function(){
 								alert( res.localId);
 							}
 						});*/
-						$.get('/Zoom/downLoadPic/'+serverId,{} , function (data) {
+						$.get('/index.php/Home/Zoom/downLoadPic/'+serverId , function (data) {
 						 alert(data);
 						 var data = typeof(data) == 'object'?data:JSON.parse(data);
 						 if (data.errorCode != 0) {
