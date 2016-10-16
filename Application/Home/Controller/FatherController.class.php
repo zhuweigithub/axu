@@ -1,6 +1,8 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
+use Think\Exception;
+
 class FatherController extends Controller {
 
     protected $userInfo = '';
@@ -34,5 +36,17 @@ class FatherController extends Controller {
             $str = iconv('UTF-8',$encode,$str);
         }
         return $str;
+    }
+    public function getRequestParam($val)
+    {
+        $data = $_POST[$val];
+        if ($data) {
+            return $data;
+        }
+        $data = $_GET[$val];
+        if ($data) {
+            return $data;
+        }
+        return '';
     }
 }

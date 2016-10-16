@@ -33,7 +33,6 @@ class WxJssdkController extends FatherController{
                 fclose($fp);
             }
         } else {
-
             $ticket = $data->jsapi_ticket;
         }
         return $ticket;
