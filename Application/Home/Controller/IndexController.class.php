@@ -95,7 +95,20 @@ class IndexController extends FatherController
 	{
 		fb($this->userInfo['openid']);
 		// $sql = "select * from ax_users where wx_open_id = \'. $this->userInfo['openid'] .\'";
+		$dMode = D("Product");
+		$result = $dMode->getActivityList();
+		fb($result);
 		$this->display('indexList');
+	}
+	public function test(){
+		$data['buyer_id'] = $this->getBuyerId();
+		$data['type'] = 0;
+		$data['order'] = 'id';
+		$data['pageNum'] = 10;
+		$data['pageNo'] = 1;
+		$dMode = D("Product");
+		$result = $dMode->getActivityList($data);
+		fb($result);exit;
 	}
 
 
