@@ -1,13 +1,12 @@
 <?php
 return array(
-	//'配置项'=>'配置值'
-    'TMPL_L_DELIM'          =>  '{',
-    'TMPL_R_DELIM'          =>  '}',
-    'TMPL_PARSE_STRING'=> array(
-        '__JS__' => '/Public/JS/home',
-        '__CSS__' =>'/Public/CSS/home',
-        '__IMG__' =>'/Public/img/home',
-        '__LIB__' =>'/Public/Lib/home',
-        '__TEMPLATE__' => 'Public/Template',
-    ),
+	'TOKEN_ON'      =>    true,  // 是否开启令牌验�?默认关闭
+	'TOKEN_NAME'    =>    '__hash__',    // 令牌验证的表单隐藏字段名称，默认为__hash__
+	'TOKEN_TYPE'    =>    'md5',  //令牌哈希验证规则 默认为MD5
+	'TOKEN_RESET'   =>    true,  //令牌验证出错后是否重置令�?默认为true
+	'URL_ROUTER_ON'   => true,  //开启路由
+	'URL_HTML_SUFFIX' => 'html',
+	'URL_MAP_RULES'=>array(
+		'test' => 'index/test'
+	),
 );

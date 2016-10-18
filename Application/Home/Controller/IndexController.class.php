@@ -3,6 +3,7 @@ namespace Home\Controller;
 
 use Common\Api\WxApi;
 use Think\Controller;
+use Think\Exception;
 
 load('Common.WxApi');
 class IndexController extends FatherController

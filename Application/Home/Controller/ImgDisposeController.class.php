@@ -42,9 +42,20 @@ class ImgDisposeController extends FatherController
 		header('Content-type: image/jpeg');
 	}
 
-	public function delSourceImg()
+	/** 删除文件
+	 * @param $file_url
+	 * @return bool
+	 */
+	public function delSourceImg($file_url)
 	{
-
+		if ($file_url) {
+			$result = @unlink($file_url);
+			if ($result) { //删除失败
+				return true;
+			} else {
+				return false;
+			}
+		}
 	}
 
 
