@@ -37,10 +37,9 @@ class BaseModel
 		}
 	}
 
-	/** 请求错误
-	 * @param $data
-	 * @return mixed
-	 */
+/*	/** 请求错误
+ * @param $data
+ * @return mixed
 	public function returnErrorResult($data)
 	{
 		$param['status'] = "false";
@@ -51,14 +50,13 @@ class BaseModel
 	/**数据请求成功返回状态和数据
 	 * @param $userInfo
 	 * @return mixed
-	 */
 	public function returnSuccessResult($userInfo)
 	{
 		$param['status'] = "ok";
 		$param['result'] = $userInfo;
 		return json_encode($param);
 
-	}
+	}*/
 
 	/** 登录或者微信授权进入后设置session
 	 * @param $buyerId

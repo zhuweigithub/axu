@@ -1,7 +1,9 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-use Think\Exception;
+use Home\Lib\Util\CHTTPExceptions;
+use Home\Lib\Util\Response;
+
 
 class FatherController extends Controller {
 
@@ -10,13 +12,21 @@ class FatherController extends Controller {
     protected $open_id;
     protected $_appId;
     protected $_appSecret;
+	protected $_response;
     public function __construct()
     {
         parent::__construct();
 		$this->open_id = session("userInfo")['wx_open_id'];
 		$this->_appId     = C("APP_ID");
 		$this->_appSecret = C("APP_SECRET");
+		$this->_response  = new Response();
+
+		set_exception_handler(function (CHTTPExceptions $exception) {
+			$exception->send([$this->_response, 'send']);
+		});
     }
+
+
 
     /** 检查是否有授权过
      * @return bool
@@ -102,4 +112,7 @@ class FatherController extends Controller {
         }
         return '';
     }
+
+
+
 }

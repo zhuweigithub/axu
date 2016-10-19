@@ -1,11 +1,9 @@
 <?php
 namespace Home\Controller;
 
-use Common\Api\WxApi;
 use Think\Controller;
-use Think\Exception;
+use Home\Lib\Util\CHTTPExceptions;
 
-load('Common.WxApi');
 class IndexController extends FatherController
 {
 	protected $_appId = "";
@@ -17,13 +15,12 @@ class IndexController extends FatherController
 		$this->_appId     = C("APP_ID");
 		$this->_appSecret = C("APP_SECRET");
 		$this->_wxApi     = new WxCallbackController();
-
 		parent::__construct();
-
 	}
 
 	public function index()
 	{
+		throw new CHTTPExceptions("170001");
 		if (!$this->getUserInfo()) {
 			$redirect_url = self::GET_CODE_URL;
 			$this->_wxApi->getWxCode($redirect_url);
@@ -35,7 +32,7 @@ class IndexController extends FatherController
 	public function getList()
 	{
 		if (!$_GET['code']) {
-			throw new Exception("code获取异常");
+			throw new CHTTPExceptions(17001);
 		}
 		$result = $this->_wxApi->getAccessTokenByCode($_GET['code']);
 		if (!empty($result)) {
@@ -95,7 +92,6 @@ class IndexController extends FatherController
 	public function indexList()
 	{
 		fb($this->userInfo['openid']);
-		// $sql = "select * from ax_users where wx_open_id = \'. $this->userInfo['openid'] .\'";
 		$dMode = D("Product");
 		$result = $dMode->getActivityList();
 		fb($result);
@@ -109,6 +105,7 @@ class IndexController extends FatherController
 		$data['pageNo'] = 1;
 		$dMode = D("Product");
 		$result = $dMode->getActivityList($data);
+
 		fb($result);exit;
 	}
 

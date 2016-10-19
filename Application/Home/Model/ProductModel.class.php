@@ -7,13 +7,16 @@
  * Time: 21:30
  */
 namespace Home\Model;
+use Home\Lib\Util\Response;
 class ProductModel extends BaseModel
 {
 	protected $_activity = "Activitys";
+	protected $_response;
 
 	public function __construct()
 	{
 		parent::__construct();
+		$this->_response = new Response();
 	}
 
 	/** type为0则查找所有数据， 为1查找秀图  为2查找秀秘密
@@ -31,7 +34,7 @@ class ProductModel extends BaseModel
 		$pageNum           = $data['pageNum'] ? $data['pageNum'] : 10;
 		$pageNo            = $data['pageNo'] ? $data['pageNo'] : 1;
 		$list              = $this->page($this->_activity, $param, $order, $pageNum, $pageNo);
-		return $this->returnSuccessResult($list);
+		return $this->_response->send($list,true);
 	}
 
 	/**
